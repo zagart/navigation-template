@@ -1,5 +1,6 @@
-package com.zagart.navigation.example.features.bonus
+package com.zagart.navigation.example.features.products
 
+import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,21 +11,21 @@ import com.zagart.navigation.example.features.productdetails.presentation.Produc
 import com.zagart.navigation.example.features.productdetails.presentation.ProductDetailsScreen
 import com.zagart.navigation.example.framework.navigation.Destination
 import com.zagart.navigation.example.shared.presentation.Tab
-import kotlinx.serialization.Serializable
+import kotlinx.parcelize.Parcelize
 
-@Serializable
-data class BonusNavigation(override val backstackIndex: Int = -1) : Destination
+@Parcelize
+data class ProductsBackstack(override val backstackIndex: Int = -1) : Destination, Parcelable
 
 @Composable
-fun BonusNavHost(
+fun ProductsNavHost(
     navController: NavHostController
 ) {
     NavHost(
         navController = navController,
-        startDestination = BonusDestination::class
+        startDestination = ProductsDestination::class
     ) {
-        composable<BonusDestination> { BonusScreen() }
-        composable<BonusGroupDestination> { BonusGroupScreen(Tab.BONUS.ordinal) }
-        composable<ProductDetailsDestination> { ProductDetailsScreen(Tab.BONUS.ordinal) }
+        composable<ProductsDestination> { ProductsScreen() }
+        composable<BonusGroupDestination> { BonusGroupScreen(Tab.PRODUCTS.ordinal) }
+        composable<ProductDetailsDestination> { ProductDetailsScreen(Tab.PRODUCTS.ordinal) }
     }
 }

@@ -1,5 +1,6 @@
 package com.zagart.navigation.example.features.mylist
 
+import android.os.Parcelable
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -8,10 +9,10 @@ import com.zagart.navigation.example.features.bonusgroup.BonusGroupDestination
 import com.zagart.navigation.example.features.bonusgroup.BonusGroupScreen
 import com.zagart.navigation.example.framework.navigation.Destination
 import com.zagart.navigation.example.shared.presentation.Tab
-import kotlinx.serialization.Serializable
+import kotlinx.parcelize.Parcelize
 
-@Serializable
-data class MyListNavigation(override val backstackIndex: Int = -1) : Destination
+@Parcelize
+data class MyListBackstack(override val backstackIndex: Int = -1) : Destination, Parcelable
 
 @Composable
 fun MyListNavHost(

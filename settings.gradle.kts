@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Navigation Example"
+rootProject.name = "navigation-template"
 include(":app")
  

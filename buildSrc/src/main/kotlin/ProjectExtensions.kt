@@ -1,0 +1,171 @@
+import com.android.build.gradle.LibraryExtension
+import org.gradle.api.Project
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.internal.catalog.DelegatingProjectDependency
+import org.gradle.api.provider.Provider
+import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.project
+
+fun Project.android(): LibraryExtension {
+    return extensions.getByType<LibraryExtension>()
+}
+
+fun Project.projects(): LibraryExtension {
+    return extensions.getByType<LibraryExtension>()
+}
+
+fun Project.library(libraryAlias: String): String {
+    val dependency = libs().findLibrary(libraryAlias).get().get()
+
+    println("Library added: $dependency")
+
+    return dependency.toString()
+}
+
+fun Project.libs(): VersionCatalog {
+    return rootProject
+        .extensions
+        .getByType<VersionCatalogsExtension>()
+        .named("libs")
+}
+
+fun Project.appModule(
+    name: String,
+    modules: Modules = Modules(),
+    dependencies: Dependencies = Dependencies(),
+) {
+    apply<LibraryGradlePlugin>()
+    android().namespace = "${ProjectConfig.namespace}.$name"
+    dependencies {
+        modules.projects.forEach { dependency ->
+            add("implementation", dependency)
+        }
+        dependencies.libs.forEach { dependency ->
+            add("implementation", dependency)
+        }
+    }
+
+    if (name.contains(".data")) {
+        setupApi()
+        dependencies {
+            if (!name.contains("base.data")) {
+                add("implementation", project(":feature:base:data"))
+                add("implementation", project(":feature:base:presentation"))
+            }
+
+            add("implementation", project(":analytics"))
+            add("implementation", project(":api"))
+            add("implementation", project(":di"))
+            add("implementation", project(":feature:base:domain"))
+            add("implementation", project(":framework:kotlin"))
+            add("implementation", library("arrow"))
+        }
+    }
+
+    if (name.contains(".domain")) {
+        dependencies {
+            if (!name.contains("base.domain")) {
+                add("implementation", project(":feature:base:domain"))
+            }
+
+            add("implementation", library("arrow"))
+            add("implementation", project(":di"))
+            add("implementation", project(":framework:kotlin"))
+        }
+    }
+
+    if (name.contains(".presentation")) {
+        setupCompose()
+        dependencies {
+            if (!name.contains("base.presentation")) {
+                add("implementation", project(":feature:base:presentation"))
+            }
+
+            add("implementation", project(":analytics"))
+            add("implementation", project(":di"))
+            add("implementation", project(":feature:base:domain"))
+            add("implementation", project(":feature:base:ui"))
+            add("implementation", project(":framework:navigation"))
+            add("implementation", project(":framework:kotlin"))
+            add("implementation", project(":framework:ui"))
+            add("implementation", library("arrow"))
+        }
+    }
+
+    if (name.contains(".ui") && !name.contains("base.ui") && !name.contains("framework.ui")) {
+        setupCompose()
+        dependencies {
+            add("implementation", project(":analytics"))
+            add("implementation", project(":feature:base:ui"))
+            add("implementation", project(":framework:navigation"))
+            add("implementation", project(":framework:kotlin"))
+            add("implementation", project(":framework:ui"))
+        }
+    }
+}
+
+class Modules(vararg projects: DelegatingProjectDependency) {
+    val projects: List<DelegatingProjectDependency> = projects.asList()
+}
+
+class Dependencies(vararg libs: Provider<MinimalExternalModuleDependency>) {
+    val libs: List<Provider<MinimalExternalModuleDependency>> = libs.asList()
+}
+
+fun Project.setupHilt() {
+    pluginManager.apply("com.google.dagger.hilt.android")
+
+    dependencies {
+        ksp(library("hilt-android-compiler"))
+        implementation(library("hilt-android"))
+        implementation(library("hilt-navigation-compose"))
+    }
+}
+
+fun Project.setupRoom() {
+    dependencies {
+        ksp(library("room-compiler"))
+        implementation(library("room"))
+        implementation(library("room-ktx"))
+    }
+}
+
+fun Project.setupCompose() {
+    dependencies {
+        implementation(platform(library("compose-bom")))
+        implementation(library("activity-compose"))
+        implementation(library("compose-material3"))
+        implementation(library("compose-ui"))
+        implementation(library("compose-ui-graphics"))
+        implementation(library("compose-ui-tooling"))
+        implementation(library("compose-ui-tooling-preview"))
+        implementation(library("constraint-layout"))
+        implementation(library("flow-row"))
+        implementation(library("navigation-compose"))
+        implementation(library("lifecycle-runtime-compose"))
+        implementation(library("lifecycle-viewmodel-compose"))
+    }
+}
+
+fun Project.setupApi() {
+    dependencies {
+        implementation(library("retrofit"))
+        implementation(library("retrofit-converter-kotlinx.serialization"))
+        implementation(library("retrofit-converter-scalars"))
+        implementation(library("serialization-json"))
+    }
+}
+
+fun Project.setupTests() {
+    setupRoom()
+    dependencies {
+        implementation(library("compose-ui-test-junit4"))
+        implementation(library("compose-ui-test-manifest"))
+        implementation(library("test-runner"))
+        androidTestImplementation(library("hilt-android-testing"))
+    }
+}

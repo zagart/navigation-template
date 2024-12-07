@@ -33,7 +33,7 @@ fun Project.libs(): VersionCatalog {
         .named("libs")
 }
 
-fun Project.appModule(
+fun Project.module(
     name: String,
     modules: Modules = Modules(),
     dependencies: Dependencies = Dependencies(),
@@ -57,11 +57,7 @@ fun Project.appModule(
                 add("implementation", project(":feature:base:presentation"))
             }
 
-            add("implementation", project(":analytics"))
-            add("implementation", project(":api"))
-            add("implementation", project(":di"))
             add("implementation", project(":feature:base:domain"))
-            add("implementation", project(":framework:kotlin"))
             add("implementation", library("arrow"))
         }
     }
@@ -73,8 +69,6 @@ fun Project.appModule(
             }
 
             add("implementation", library("arrow"))
-            add("implementation", project(":di"))
-            add("implementation", project(":framework:kotlin"))
         }
     }
 
@@ -85,25 +79,20 @@ fun Project.appModule(
                 add("implementation", project(":feature:base:presentation"))
             }
 
-            add("implementation", project(":analytics"))
-            add("implementation", project(":di"))
             add("implementation", project(":feature:base:domain"))
             add("implementation", project(":feature:base:ui"))
-            add("implementation", project(":framework:navigation"))
-            add("implementation", project(":framework:kotlin"))
-            add("implementation", project(":framework:ui"))
             add("implementation", library("arrow"))
+            add("implementation", library("serialization-json"))
         }
     }
 
-    if (name.contains(".ui") && !name.contains("base.ui") && !name.contains("framework.ui")) {
+    if (name.contains(".ui")) {
         setupCompose()
-        dependencies {
-            add("implementation", project(":analytics"))
-            add("implementation", project(":feature:base:ui"))
-            add("implementation", project(":framework:navigation"))
-            add("implementation", project(":framework:kotlin"))
-            add("implementation", project(":framework:ui"))
+
+        if (!name.contains("base.ui")) {
+            dependencies {
+                add("implementation", project(":feature:base:ui"))
+            }
         }
     }
 }

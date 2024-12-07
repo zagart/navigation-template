@@ -11,19 +11,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
-import com.zagart.navigation.template.features.bonus.BonusBackstack
-import com.zagart.navigation.template.features.bonus.BonusNavHost
-import com.zagart.navigation.template.features.cooking.CookingBackstack
-import com.zagart.navigation.template.features.cooking.CookingNavHost
-import com.zagart.navigation.template.features.home.presentation.HomeBackstack
-import com.zagart.navigation.template.features.home.presentation.HomeNavHost
-import com.zagart.navigation.template.features.mylist.MyListBackstack
-import com.zagart.navigation.template.features.mylist.MyListNavHost
-import com.zagart.navigation.template.features.products.ProductsBackstack
-import com.zagart.navigation.template.features.products.ProductsNavHost
-import com.zagart.navigation.template.framework.navigation.Destination
-import com.zagart.navigation.template.framework.navigation.DestinationChannel
-import com.zagart.navigation.template.ui.theme.NavigationExampleTheme
+import com.zagart.navigation.template.presentation.navigation.backstacks.BonusBackstack
+import com.zagart.navigation.template.navigation.BonusNavHost
+import com.zagart.navigation.template.presentation.navigation.backstacks.CookingBackstack
+import com.zagart.navigation.template.navigation.CookingNavHost
+import com.zagart.navigation.template.presentation.navigation.backstacks.MyListBackstack
+import com.zagart.navigation.template.navigation.MyListNavHost
+import com.zagart.navigation.template.navigation.HomeNavHost
+import com.zagart.navigation.template.navigation.ProductsNavHost
+import com.zagart.navigation.template.presentation.navigation.backstacks.HomeBackstack
+import com.zagart.navigation.template.presentation.navigation.Destination
+import com.zagart.navigation.template.presentation.navigation.DestinationChannel
+import com.zagart.navigation.template.presentation.navigation.backstacks.ProductsBackstack
+import com.zagart.navigation.template.ui.theme.NavigationTemplateTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            NavigationExampleTheme {
+            NavigationTemplateTheme {
                 val homeNavController = rememberNavController()
                 val bonusNavController = rememberNavController()
                 val cookingNavController = rememberNavController()

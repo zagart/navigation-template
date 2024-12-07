@@ -8,6 +8,7 @@ open class LibraryGradlePlugin : Plugin<Project> {
         with(project) {
             pluginManager.apply("android-library")
             pluginManager.apply("kotlin-android")
+            pluginManager.apply("kotlin-parcelize")
             pluginManager.apply("com.google.devtools.ksp")
 
             setupHilt()

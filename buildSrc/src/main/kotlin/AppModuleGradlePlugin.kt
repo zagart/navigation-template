@@ -12,7 +12,16 @@ class AppModuleGradlePlugin : Plugin<Project> {
             setupRoom()
             dependencies {
                 implementation(library("serialization-json"))
-                modules()
+                modules(
+                    implementation = arrayOf(
+                        ":feature:base:presentation",
+                        ":feature:home:presentation",
+                        ":feature:bonus:presentation",
+                        ":feature:product:presentation",
+                        ":feature:cooking:presentation",
+                        ":feature:mylist:presentation",
+                    )
+                )
             }
         }
     }

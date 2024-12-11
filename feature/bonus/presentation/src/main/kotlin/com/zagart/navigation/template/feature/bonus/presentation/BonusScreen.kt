@@ -15,7 +15,6 @@ fun BonusScreen(
         modifier = modifier,
         title = "Bonus",
         tabIndex = Tab.BONUS.ordinal,
-        onBonusGroupClick = viewModel::onBonusGroupClick,
-        onNavigationItemClick = viewModel::onTabItemClick,
+        onNavigationItemClick = viewModel::onBottomBarItemClick,
     )
 }

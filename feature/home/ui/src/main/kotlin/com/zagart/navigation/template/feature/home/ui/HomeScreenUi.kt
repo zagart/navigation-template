@@ -8,44 +8,29 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.zagart.navigation.template.feature.bonus.ui.BonusGroupCard
 import com.zagart.navigation.template.feature.product.ui.ProductCard
-import com.zagart.navigation.template.feature.product.ui.ProductViewData
 import com.zagart.navigation.template.ui.ExampleBottomBar
+import com.zagart.navigation.template.ui.ExampleTopBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenUi(
     state: HomeState,
-    bottomNavigationIndex: Int,
     modifier: Modifier = Modifier,
-    onNavigationItemClick: (index: Int) -> Unit,
-    onProductClick: (viewData: ProductViewData) -> Unit,
+    actions: HomeScreenActions = HomeScreenActions(),
+    tabIndex: Int = 0,
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Home",
-                        fontSize = 34.sp,
-                    )
-                }
-            )
-        },
+        topBar = { ExampleTopBar("Home") },
         bottomBar = {
             ExampleBottomBar(
-                selectedItemIndex = bottomNavigationIndex,
-                onItemClicked = onNavigationItemClick,
+                selectedItemIndex = tabIndex,
+                onItemClicked = actions.onNavigationItemClick,
             )
         }
     ) { padding ->
@@ -64,10 +49,13 @@ fun HomeScreenUi(
                     items(lane.items) { item ->
                         Row {
                             when (item) {
-                                is HomeItem.BonusGroup -> BonusGroupCard(item.viewData)
+                                is HomeItem.BonusGroup -> BonusGroupCard(
+                                    viewData = item.viewData,
+                                    onClick = actions.onBonusGroupClick
+                                )
                                 is HomeItem.Product -> ProductCard(
                                     viewData = item.viewData,
-                                    onClick = onProductClick,
+                                    onClick = actions.onProductClick,
                                 )
                             }
                             Spacer(Modifier.size(8.dp))

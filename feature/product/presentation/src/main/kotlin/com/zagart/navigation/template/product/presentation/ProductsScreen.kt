@@ -15,7 +15,6 @@ fun ProductsScreen(
         modifier = modifier,
         title = "Products",
         tabIndex = Tab.PRODUCTS.ordinal,
-        onBonusGroupClick = viewModel::onBonusGroupClick,
-        onNavigationItemClick = viewModel::onTabItemClick,
+        onNavigationItemClick = viewModel::onBottomBarItemClick,
     )
 }

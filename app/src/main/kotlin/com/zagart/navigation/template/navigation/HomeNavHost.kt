@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.zagart.navigation.template.feature.bonus.presentation.BonusGroupScreen
 import com.zagart.navigation.template.presentation.HomeScreen
 import com.zagart.navigation.template.presentation.navigation.Tab
@@ -21,7 +22,12 @@ fun HomeNavHost(
         startDestination = HomeDestination::class
     ) {
         composable<HomeDestination> { HomeScreen() }
-        composable<BonusGroupDestination> { BonusGroupScreen(Tab.HOME.ordinal) }
+        composable<BonusGroupDestination> { entry ->
+            BonusGroupScreen(
+                tabIndex = Tab.HOME.ordinal,
+                destination = entry.toRoute<BonusGroupDestination>(),
+            )
+        }
         composable<ProductDetailsDestination> { ProductDetailsScreen(Tab.HOME.ordinal) }
     }
 }

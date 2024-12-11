@@ -15,7 +15,6 @@ fun CookingScreen(
         modifier = modifier,
         title = "Cooking",
         tabIndex = Tab.COOKING.ordinal,
-        onBonusGroupClick = viewModel::onBonusGroupClick,
-        onNavigationItemClick = viewModel::onTabItemClick,
+        onNavigationItemClick = viewModel::onBottomBarItemClick,
     )
 }

@@ -4,5 +4,8 @@ plugins {
 }
 
 module(
-    name = "feature.base.ui"
+    name = "feature.base.ui",
+    dependencies = Dependencies(
+        libs.material.icons.extended
+    )
 )

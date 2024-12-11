@@ -15,7 +15,6 @@ fun MyListScreen(
         modifier = modifier,
         title = "My List",
         tabIndex = Tab.MY_LIST.ordinal,
-        onBonusGroupClick = viewModel::onBonusGroupClick,
-        onNavigationItemClick = viewModel::onTabItemClick,
+        onNavigationItemClick = viewModel::onBottomBarItemClick,
     )
 }

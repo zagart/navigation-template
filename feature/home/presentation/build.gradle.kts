@@ -8,6 +8,7 @@ module(
     modules = projects.feature.run {
         Modules(
             home.ui,
+            bonus.domain,
             bonus.ui,
             product.ui,
             product.domain,

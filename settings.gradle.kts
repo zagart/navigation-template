@@ -31,6 +31,7 @@ include(":feature:base:ui")
 include(":feature:home:presentation")
 include(":feature:home:ui")
 
+include(":feature:bonus:domain")
 include(":feature:bonus:presentation")
 include(":feature:bonus:ui")
 

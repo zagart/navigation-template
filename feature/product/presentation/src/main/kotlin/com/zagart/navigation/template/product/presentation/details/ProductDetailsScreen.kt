@@ -15,7 +15,6 @@ fun ProductDetailsScreen(
         modifier = modifier,
         title = "Product details",
         tabIndex = backstackIndex,
-        onBonusGroupClick = viewModel::onBonusGroupClick,
-        onNavigationItemClick = viewModel::onTabItemClick,
+        onNavigationItemClick = viewModel::onBottomBarItemClick,
     )
 }

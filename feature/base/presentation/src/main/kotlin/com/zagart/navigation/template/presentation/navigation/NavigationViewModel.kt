@@ -2,6 +2,8 @@ package com.zagart.navigation.template.presentation.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zagart.navigation.template.feature.bonus.ui.BonusGroupViewData
+import com.zagart.navigation.template.feature.product.ui.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.backstacks.BonusBackstack
 import com.zagart.navigation.template.presentation.navigation.backstacks.CookingBackstack
 import com.zagart.navigation.template.presentation.navigation.backstacks.HomeBackstack
@@ -13,15 +15,15 @@ import kotlinx.coroutines.launch
 
 open class NavigationViewModel : ViewModel() {
 
-    fun onBonusGroupClick(bonusGroupId: String, backstackIndex: Int) {
-        sendDestination(BonusGroupDestination(bonusGroupId, backstackIndex))
+    fun onBonusGroupClick(bonusGroup: BonusGroupViewData, backstackIndex: Int) {
+        sendDestination(BonusGroupDestination(bonusGroup.id, backstackIndex))
     }
 
-    fun onProductClick(productId: String, backstackIndex: Int) {
-        sendDestination(ProductDetailsDestination(productId, backstackIndex))
+    fun onProductClick(product: ProductViewData, backstackIndex: Int) {
+        sendDestination(ProductDetailsDestination(product.id, backstackIndex))
     }
 
-    fun onTabItemClick(index: Int) {
+    fun onBottomBarItemClick(index: Int) {
         when (index) {
             Tab.HOME.ordinal -> sendDestination(HomeBackstack())
             Tab.BONUS.ordinal -> sendDestination(BonusBackstack())

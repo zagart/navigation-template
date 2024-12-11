@@ -4,8 +4,8 @@ plugins {
 }
 
 module(
-    name = "feature.bonus.ui",
+    name = "feature.bonus.domain",
     Modules(
-        projects.feature.product.ui
+        projects.feature.product.domain
     )
 )

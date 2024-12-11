@@ -1,6 +1,8 @@
 package com.zagart.navigation.template.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.zagart.navigation.template.feature.bonus.domain.BonusGroupRepository
+import com.zagart.navigation.template.feature.bonus.ui.BonusGroupViewData
 import com.zagart.navigation.template.feature.home.ui.HomeItem
 import com.zagart.navigation.template.feature.home.ui.HomeLane
 import com.zagart.navigation.template.feature.home.ui.HomeState
@@ -25,13 +27,16 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
             val products = ProductRepository.getProducts().map {
                 ProductViewData(it.id, it.title)
             }
+            val bonusGroups = BonusGroupRepository.getBonusGroups().map {
+                BonusGroupViewData(it.id, it.title)
+            }
 
             _state.update { currentState ->
                 currentState.copy(
                     lanes = arrayListOf(
                         HomeLane(items = products.map { HomeItem.Product(it) }),
                         HomeLane(items = products.map { HomeItem.Product(it) }),
-                        HomeLane(items = products.map { HomeItem.Product(it) }),
+                        HomeLane(items = bonusGroups.map { HomeItem.BonusGroup(it) }),
                         HomeLane(items = products.map { HomeItem.Product(it) }),
                         HomeLane(items = products.map { HomeItem.Product(it) }),
                     )

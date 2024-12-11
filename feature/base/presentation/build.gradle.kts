@@ -5,5 +5,11 @@ plugins {
 }
 
 module(
-    name = "feature.base.presentation"
+    name = "feature.base.presentation",
+    modules = projects.feature.run {
+        Modules(
+            bonus.ui,
+            product.ui,
+        )
+    }
 )

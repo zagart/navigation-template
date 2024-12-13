@@ -16,12 +16,32 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.NavigationExample">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+
+                <data android:host="ah.nl" />
+                <data android:host="ah.be" />
+                <data android:host="www.ah.nl" />
+                <data android:host="www.ah.be" />
+
+                <data android:pathPattern="/home" />
+                <data android:pathPattern="/bonus" />
+                <data android:pathPattern="/cooking" />
+                <data android:pathPattern="/products" />
+                <data android:pathPattern="/mylist" />
             </intent-filter>
         </activity>
     </application>

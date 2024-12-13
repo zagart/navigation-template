@@ -1,5 +1,6 @@
 package com.zagart.navigation.template
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import com.zagart.navigation.template.navigation.CookingNavHost
 import com.zagart.navigation.template.navigation.HomeNavHost
 import com.zagart.navigation.template.navigation.MyListNavHost
 import com.zagart.navigation.template.navigation.ProductsNavHost
+import com.zagart.navigation.template.navigation.deeplinks.DeeplinkConverter
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.DestinationChannel
 import com.zagart.navigation.template.presentation.navigation.backstacks.BonusBackstack
@@ -25,6 +27,9 @@ import com.zagart.navigation.template.presentation.navigation.backstacks.MyListB
 import com.zagart.navigation.template.presentation.navigation.backstacks.ProductsBackstack
 import com.zagart.navigation.template.ui.theme.NavigationTemplateTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -74,6 +79,23 @@ class MainActivity : ComponentActivity() {
                     is MyListBackstack -> MyListNavHost(myListNavController)
                 }
             }
+        }
+        handleDeeplink(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleDeeplink(intent)
+    }
+}
+
+private fun handleDeeplink(intent: Intent) {
+    val destinations = DeeplinkConverter.apply(intent)
+    val coroutineScope = CoroutineScope(Dispatchers.Main)
+
+    coroutineScope.launch {
+        destinations.forEach {
+            DestinationChannel.send(it)
         }
     }
 }

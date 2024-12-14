@@ -11,20 +11,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.zagart.navigation.template.navigation.BonusNavHost
-import com.zagart.navigation.template.navigation.CookingNavHost
-import com.zagart.navigation.template.navigation.HomeNavHost
-import com.zagart.navigation.template.navigation.MyListNavHost
-import com.zagart.navigation.template.navigation.ProductsNavHost
 import com.zagart.navigation.template.navigation.deeplinks.DeeplinkConverter
+import com.zagart.navigation.template.navigation.hosts.BonusNavHost
+import com.zagart.navigation.template.navigation.hosts.CookingNavHost
+import com.zagart.navigation.template.navigation.hosts.HomeNavHost
+import com.zagart.navigation.template.navigation.hosts.MyListNavHost
+import com.zagart.navigation.template.navigation.hosts.ProductsNavHost
+import com.zagart.navigation.template.presentation.navigation.BackDestination
+import com.zagart.navigation.template.presentation.navigation.BonusBackstack
+import com.zagart.navigation.template.presentation.navigation.CookingBackstack
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.DestinationChannel
-import com.zagart.navigation.template.presentation.navigation.backstacks.BonusBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.CookingBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.HomeBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.MyListBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.ProductsBackstack
+import com.zagart.navigation.template.presentation.navigation.HomeBackstack
+import com.zagart.navigation.template.presentation.navigation.MyListBackstack
+import com.zagart.navigation.template.presentation.navigation.ProductsBackstack
 import com.zagart.navigation.template.ui.theme.NavigationTemplateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -62,11 +64,11 @@ class MainActivity : ComponentActivity() {
                         is ProductsBackstack -> currentBackstack = ProductsBackstack()
                         is MyListBackstack -> currentBackstack = MyListBackstack()
                         else -> when (currentBackstack) {
-                            is HomeBackstack -> homeNavController.navigate(destination)
-                            is BonusBackstack -> bonusNavController.navigate(destination)
-                            is CookingBackstack -> cookingNavController.navigate(destination)
-                            is ProductsBackstack -> productsNavController.navigate(destination)
-                            is MyListBackstack -> myListNavController.navigate(destination)
+                            is HomeBackstack -> homeNavController.open(destination)
+                            is BonusBackstack -> bonusNavController.open(destination)
+                            is CookingBackstack -> cookingNavController.open(destination)
+                            is ProductsBackstack -> productsNavController.open(destination)
+                            is MyListBackstack -> myListNavController.open(destination)
                         }
                     }
                 }
@@ -87,10 +89,20 @@ class MainActivity : ComponentActivity() {
         super.onNewIntent(intent)
         handleDeeplink(intent)
     }
+
+    private fun NavHostController.open(destination: Destination) {
+        if (destination is BackDestination) {
+            if (!navigateUp()) {
+                finish()
+            }
+        } else {
+            navigate(destination)
+        }
+    }
 }
 
 private fun handleDeeplink(intent: Intent) {
-    val destinations = DeeplinkConverter.apply(intent)
+    val destinations = DeeplinkConverter.apply(intent.data)
     val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     coroutineScope.launch {

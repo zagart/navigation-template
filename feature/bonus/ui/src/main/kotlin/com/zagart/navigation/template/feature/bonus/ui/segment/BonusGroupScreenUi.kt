@@ -18,6 +18,7 @@ fun BonusGroupScreenUi(
     tabIndex: Int,
     state: BonusGroupScreenState,
     modifier: Modifier = Modifier,
+    showBottomBar: Boolean = true,
     actions: BonusGroupActions = BonusGroupActions(),
 ) {
     Scaffold(
@@ -26,10 +27,12 @@ fun BonusGroupScreenUi(
             ExampleTopBar(state.bonusGroup.title)
         },
         bottomBar = {
-            ExampleBottomBar(
-                selectedItemIndex = tabIndex,
-                onItemClicked = actions.onBottomBarItemClick,
-            )
+            if (showBottomBar) {
+                ExampleBottomBar(
+                    selectedItemIndex = tabIndex,
+                    onItemClicked = actions.onBottomBarItemClick,
+                )
+            }
         }
     ) { padding ->
         LazyColumn(

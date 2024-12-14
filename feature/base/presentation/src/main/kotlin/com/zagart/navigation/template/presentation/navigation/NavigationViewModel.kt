@@ -4,26 +4,33 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.ui.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
-import com.zagart.navigation.template.presentation.navigation.backstacks.BonusBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.CookingBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.HomeBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.MyListBackstack
-import com.zagart.navigation.template.presentation.navigation.backstacks.ProductsBackstack
-import com.zagart.navigation.template.presentation.navigation.destinations.BonusGroupDestination
-import com.zagart.navigation.template.presentation.navigation.destinations.ProductDetailsDestination
 import kotlinx.coroutines.launch
 
-open class NavigationViewModel : ViewModel() {
+abstract class NavigationViewModel : ViewModel() {
 
-    fun onBonusGroupClick(bonusGroup: BonusGroupViewData, backstackIndex: Int) {
-        sendDestination(BonusGroupDestination(bonusGroup.id, backstackIndex))
+    open fun onBackClick() {
+        sendDestination(BackDestination())
     }
 
-    fun onProductClick(product: ProductViewData, backstackIndex: Int) {
-        sendDestination(ProductDetailsDestination(product.id, backstackIndex))
+    open fun onBonusGroupClick(bonusGroup: BonusGroupViewData, backstackIndex: Int) {
+        sendDestination(
+            BonusGroupDestination(
+                id = bonusGroup.id,
+                args = Destination.Args(backstackIndex)
+            )
+        )
     }
 
-    fun onBottomBarItemClick(index: Int) {
+    open fun onProductClick(product: ProductViewData, backstackIndex: Int) {
+        sendDestination(
+            ProductDetailsDestination(
+                id = product.id,
+                args = Destination.Args(backstackIndex)
+            )
+        )
+    }
+
+    open fun onBottomBarItemClick(index: Int) {
         when (index) {
             Tab.HOME.ordinal -> sendDestination(HomeBackstack())
             Tab.BONUS.ordinal -> sendDestination(BonusBackstack())

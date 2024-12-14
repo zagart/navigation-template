@@ -1,5 +1,6 @@
 package com.zagart.navigation.template.product.presentation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,6 +12,7 @@ fun ProductsScreen(
     modifier: Modifier = Modifier,
     viewModel: ProductsViewModel = hiltViewModel(),
 ) {
+    BackHandler(onBack = viewModel::onBackClick)
     DummyScreen(
         modifier = modifier,
         title = "Products",

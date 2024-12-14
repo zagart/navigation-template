@@ -1,5 +1,6 @@
 package com.zagart.navigation.template.presentation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,6 +24,8 @@ fun HomeScreen(
             onBonusGroupClick = { viewData -> viewModel.onBonusGroupClick(viewData, Tab.HOME.ordinal) }
         )
     }
+
+    BackHandler(onBack = viewModel::onBackClick)
     HomeScreenUi(
         modifier = modifier,
         state = state,

@@ -8,6 +8,8 @@ import com.zagart.navigation.template.feature.home.ui.HomeLane
 import com.zagart.navigation.template.feature.home.ui.HomeState
 import com.zagart.navigation.template.feature.product.domain.ProductRepository
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
+import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,5 +45,17 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
                 )
             }
         }
+    }
+
+    override fun onBonusGroupClick(bonusGroup: BonusGroupViewData, backstackIndex: Int) {
+        sendDestination(
+            BonusGroupDestination(
+                id = bonusGroup.id,
+                args = Destination.Args(
+                    backstackIndex = backstackIndex,
+                    type = Destination.Type.FULLSCREEN
+                )
+            )
+        )
     }
 }

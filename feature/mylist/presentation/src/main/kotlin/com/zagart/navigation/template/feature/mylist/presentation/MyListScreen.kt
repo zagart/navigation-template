@@ -1,5 +1,6 @@
 package com.zagart.navigation.template.feature.mylist.presentation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,6 +12,7 @@ fun MyListScreen(
     modifier: Modifier = Modifier,
     viewModel: MyListViewModel = hiltViewModel(),
 ) {
+    BackHandler(onBack = viewModel::onBackClick)
     DummyScreen(
         modifier = modifier,
         title = "My List",

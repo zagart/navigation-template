@@ -31,6 +31,7 @@ import com.zagart.navigation.template.ui.theme.NavigationTemplateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -108,6 +109,8 @@ private fun handleDeeplink(intent: Intent) {
     coroutineScope.launch {
         destinations.forEach {
             DestinationChannel.send(it)
+            //TODO: Try different destination channel implementations
+            delay(50) //controller can't handle destinations faster
         }
     }
 }

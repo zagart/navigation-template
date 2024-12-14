@@ -41,6 +41,7 @@
                 <data android:pathPattern="/bonus" />
                 <data android:pathPattern="/cooking" />
                 <data android:pathPattern="/products" />
+                <data android:pathPattern="/products/product" />
                 <data android:pathPattern="/mylist" />
             </intent-filter>
         </activity>

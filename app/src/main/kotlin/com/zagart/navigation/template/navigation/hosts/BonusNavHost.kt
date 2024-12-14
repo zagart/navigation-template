@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.zagart.navigation.template.feature.bonus.presentation.BonusGroupScreen
 import com.zagart.navigation.template.feature.bonus.presentation.BonusScreen
+import com.zagart.navigation.template.navigation.defaultTypeMap
 import com.zagart.navigation.template.navigation.screen
 import com.zagart.navigation.template.presentation.navigation.BonusDestination
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
@@ -19,6 +20,7 @@ fun BonusNavHost(
     NavHost(
         navController = navController,
         startDestination = BonusDestination::class,
+        typeMap = defaultTypeMap,
     ) {
         screen<BonusDestination> { BonusScreen() }
         screen<BonusGroupDestination> { destination ->

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.zagart.navigation.template.feature.bonus.presentation.BonusGroupScreen
+import com.zagart.navigation.template.navigation.defaultTypeMap
 import com.zagart.navigation.template.navigation.screen
 import com.zagart.navigation.template.presentation.HomeScreen
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
@@ -19,6 +20,7 @@ fun HomeNavHost(
     NavHost(
         navController = navController,
         startDestination = HomeDestination::class,
+        typeMap = defaultTypeMap,
     ) {
         screen<HomeDestination> { HomeScreen() }
         screen<BonusGroupDestination> { destination ->

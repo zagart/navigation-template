@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.zagart.navigation.template.feature.bonus.presentation.BonusGroupScreen
 import com.zagart.navigation.template.feature.cooking.presentation.CookingScreen
+import com.zagart.navigation.template.navigation.defaultTypeMap
 import com.zagart.navigation.template.navigation.screen
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.CookingDestination
@@ -19,6 +20,7 @@ fun CookingNavHost(
     NavHost(
         navController = navController,
         startDestination = CookingDestination::class,
+        typeMap = defaultTypeMap,
     ) {
         screen<CookingDestination> { CookingScreen() }
         screen<BonusGroupDestination> { destination ->

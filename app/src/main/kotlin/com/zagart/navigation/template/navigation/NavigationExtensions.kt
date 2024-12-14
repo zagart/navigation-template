@@ -12,14 +12,14 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
 
+val defaultTypeMap = mapOf(
+    typeOf<Destination.Args>() to DestinationArgsNavType()
+)
+
 inline fun <reified T : Any> NavGraphBuilder.screen(
     noinline content: @Composable AnimatedContentScope.(T) -> Unit
 ) {
-    composable<T>(
-        typeMap = mapOf(
-            typeOf<Destination.Args>() to DestinationArgsNavType()
-        )
-    ) { entry -> content(entry.toRoute()) }
+    composable<T>(typeMap = defaultTypeMap) { entry -> content(entry.toRoute()) }
 }
 
 /**

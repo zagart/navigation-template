@@ -1,4 +1,4 @@
-package com.zagart.navigation.template.feature.bonus.ui
+package com.zagart.navigation.template.feature.bonus.ui.components
 
 data class BonusGroupViewData(
     val id: String = "",

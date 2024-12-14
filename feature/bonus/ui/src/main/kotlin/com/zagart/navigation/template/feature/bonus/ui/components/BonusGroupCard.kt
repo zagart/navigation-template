@@ -1,4 +1,4 @@
-package com.zagart.navigation.template.feature.bonus.ui
+package com.zagart.navigation.template.feature.bonus.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

@@ -2,7 +2,7 @@ package com.zagart.navigation.template.presentation.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zagart.navigation.template.feature.bonus.ui.BonusGroupViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
 import kotlinx.coroutines.launch
 

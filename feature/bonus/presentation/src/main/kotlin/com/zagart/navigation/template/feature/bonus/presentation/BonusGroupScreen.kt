@@ -39,7 +39,7 @@ fun BonusGroupScreen(
     }
 
     LaunchedEffect(tabIndex, destination) {
-        viewModel.load(destination.id)
+        viewModel.load(destination)
     }
 
     BackHandler(onBack = viewModel::onBackClick)

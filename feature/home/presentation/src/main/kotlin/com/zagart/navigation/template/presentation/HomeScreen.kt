@@ -19,7 +19,7 @@ fun HomeScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
         HomeScreenActions(
-            onNavigationItemClick = viewModel::onBottomBarItemClick,
+            onBottomBarItemClick = viewModel::onBottomBarItemClick,
             onProductClick = { viewData -> viewModel.onProductClick(viewData, Tab.HOME.ordinal) },
             onBonusGroupClick = { viewData -> viewModel.onBonusGroupClick(viewData, Tab.HOME.ordinal) }
         )

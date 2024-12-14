@@ -12,14 +12,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.zagart.navigation.template.feature.bonus.ui.BonusGroupCard
+import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupCard
 import com.zagart.navigation.template.feature.product.ui.ProductCard
 import com.zagart.navigation.template.ui.ExampleBottomBar
 import com.zagart.navigation.template.ui.ExampleTopBar
 
 @Composable
 fun HomeScreenUi(
-    state: HomeState,
+    state: HomeScreenState,
     modifier: Modifier = Modifier,
     actions: HomeScreenActions = HomeScreenActions(),
     tabIndex: Int = 0,
@@ -30,7 +30,7 @@ fun HomeScreenUi(
         bottomBar = {
             ExampleBottomBar(
                 selectedItemIndex = tabIndex,
-                onItemClicked = actions.onNavigationItemClick,
+                onItemClicked = actions.onBottomBarItemClick,
             )
         }
     ) { padding ->

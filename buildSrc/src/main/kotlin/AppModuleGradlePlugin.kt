@@ -15,6 +15,7 @@ class AppModuleGradlePlugin : Plugin<Project> {
                 modules(
                     implementation = arrayOf(
                         ":feature:base:presentation",
+                        ":feature:base:ui",
                         ":feature:home:presentation",
                         ":feature:bonus:presentation",
                         ":feature:product:presentation",

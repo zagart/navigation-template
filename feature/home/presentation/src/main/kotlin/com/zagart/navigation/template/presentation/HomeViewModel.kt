@@ -2,7 +2,7 @@ package com.zagart.navigation.template.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.domain.BonusGroupRepository
-import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.home.ui.HomeItem
 import com.zagart.navigation.template.feature.home.ui.HomeLane
 import com.zagart.navigation.template.feature.home.ui.HomeScreenState

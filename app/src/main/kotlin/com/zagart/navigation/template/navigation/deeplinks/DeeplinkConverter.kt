@@ -2,12 +2,14 @@ package com.zagart.navigation.template.navigation.deeplinks
 
 import android.net.Uri
 import com.zagart.navigation.template.presentation.navigation.BonusBackstack
+import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.CookingBackstack
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.HomeBackstack
 import com.zagart.navigation.template.presentation.navigation.MyListBackstack
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
 import com.zagart.navigation.template.presentation.navigation.ProductsBackstack
+import com.zagart.navigation.template.ui.Tab
 
 object DeeplinkConverter {
 
@@ -25,6 +27,16 @@ private fun String.asDestinations(): List<Destination> {
     when (this) {
         "home" -> destinations.add(HomeBackstack())
         "bonus" -> destinations.add(BonusBackstack())
+        "bonusbox" -> destinations.apply {
+            add(BonusBackstack())
+            add(
+                BonusBoxDestination(
+                    args = Destination.Args(
+                        backstackIndex = Tab.BONUS.ordinal
+                    )
+                )
+            )
+        }
         "cooking" -> destinations.add(CookingBackstack())
         "products" -> destinations.add(ProductsBackstack())
         "mylist" -> destinations.add(MyListBackstack())

@@ -1,10 +1,12 @@
-package com.zagart.navigation.template.feature.home.ui
+package com.zagart.navigation.template.feature.bonus.ui.components
 
+import com.zagart.navigation.template.feature.bonus.ui.bonusbox.AdvertisementViewData
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
 
-data class HomeScreenActions(
+data class BonusLanesActions(
+    val onAdvertisementClick: (AdvertisementViewData) -> Unit = {},
+    val onBonusBoxBannerClick: () -> Unit = {},
     val onBonusGroupClick: (viewData: BonusGroupViewData) -> Unit = {},
-    val onBottomBarItemClick: (index: Int) -> Unit = {},
     val onProductClick: (viewData: ProductViewData) -> Unit = {},
 )

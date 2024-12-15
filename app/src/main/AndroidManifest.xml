@@ -39,6 +39,7 @@
 
                 <data android:pathPattern="/home" />
                 <data android:pathPattern="/bonus" />
+                <data android:pathPattern="/bonusbox" />
                 <data android:pathPattern="/cooking" />
                 <data android:pathPattern="/products" />
                 <data android:pathPattern="/products/product" />

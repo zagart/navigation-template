@@ -9,7 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zagart.navigation.template.feature.home.ui.HomeScreenActions
 import com.zagart.navigation.template.feature.home.ui.HomeScreenUi
-import com.zagart.navigation.template.presentation.navigation.Tab
+import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun HomeScreen(

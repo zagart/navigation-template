@@ -1,11 +1,13 @@
 package com.zagart.navigation.template.feature.home.ui
 
 import androidx.compose.runtime.Immutable
-import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.ui.Tab
 
 @Immutable
 data class HomeScreenState(
+    val currentTab: Tab = Tab.HOME,
     val lanes: List<HomeLane> = emptyList()
 )
 

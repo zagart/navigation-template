@@ -1,4 +1,4 @@
-package com.zagart.navigation.template.feature.bonus.presentation
+package com.zagart.navigation.template.feature.bonus.presentation.segment
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -22,10 +22,11 @@ import com.zagart.navigation.template.feature.bonus.ui.segment.BonusGroupActions
 import com.zagart.navigation.template.feature.bonus.ui.segment.BonusGroupScreenUi
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.Destination
+import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun BonusGroupScreen(
-    tabIndex: Int,
+    tab: Tab,
     destination: BonusGroupDestination,
     modifier: Modifier = Modifier,
     viewModel: BonusGroupViewModel = hiltViewModel(),
@@ -33,12 +34,12 @@ fun BonusGroupScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
         BonusGroupActions(
-            onProductClick = { viewModel.onProductClick(it, tabIndex) },
+            onProductClick = { viewModel.onProductClick(it, tab.ordinal) },
             onBottomBarItemClick = viewModel::onBottomBarItemClick
         )
     }
 
-    LaunchedEffect(tabIndex, destination) {
+    LaunchedEffect(tab, destination) {
         viewModel.load(destination)
     }
 
@@ -47,7 +48,7 @@ fun BonusGroupScreen(
     when (destination.args.type) {
         Destination.Type.FULLSCREEN -> BonusGroupScreenUi(
             modifier = modifier,
-            tabIndex = tabIndex,
+            tabIndex = tab.ordinal,
             state = state,
             actions = actions
         )
@@ -57,7 +58,7 @@ fun BonusGroupScreen(
         ) {
             BonusGroupScreenUi(
                 modifier = modifier.size(400.dp),
-                tabIndex = tabIndex,
+                tabIndex = tab.ordinal,
                 showBottomBar = false,
                 state = state,
                 actions = actions
@@ -74,7 +75,7 @@ fun BonusGroupScreen(
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
                     .height(400.dp),
-                tabIndex = tabIndex,
+                tabIndex = tab.ordinal,
                 showBottomBar = false,
                 state = state,
                 actions = actions

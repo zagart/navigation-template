@@ -1,4 +1,4 @@
-package com.zagart.navigation.template.feature.bonus.ui.overview
+package com.zagart.navigation.template.feature.bonus.ui.bonusbox
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -9,11 +9,10 @@ import com.zagart.navigation.template.ui.ExampleBottomBar
 import com.zagart.navigation.template.ui.ExampleTopBar
 
 @Composable
-fun BonusScreenUi(
-    state: BonusScreenState,
+fun BonusBoxScreenUi(
+    state: BonusBoxScreenState,
     modifier: Modifier = Modifier,
-    actions: BonusScreenActions = BonusScreenActions(),
-    backstackIndex: Int = 1,
+    actions: BonusBoxScreenActions = BonusBoxScreenActions(),
 ) {
     Scaffold(
         modifier = modifier,
@@ -25,17 +24,17 @@ fun BonusScreenUi(
         content = { padding ->
             BonusLanesContent(
                 modifier = Modifier.padding(padding),
-                lanes = state.lanes,
-                actions = actions.bonusLanesActions
+                actions = actions.bonusLanesActions,
+                lanes = state.lanes
             )
         },
         bottomBar = {
             if (state.showBottomBar) {
                 ExampleBottomBar(
-                    selectedItemIndex = backstackIndex,
+                    selectedItemIndex = state.currentTab.ordinal,
                     onItemClicked = actions.onBottomBarItemClick
                 )
             }
-        },
+        }
     )
 }

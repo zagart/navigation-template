@@ -1,10 +1,12 @@
-package com.zagart.navigation.template.feature.bonus.presentation
+package com.zagart.navigation.template.feature.bonus.presentation.overview
 
 import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.domain.BonusGroupRepository
-import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupViewData
-import com.zagart.navigation.template.feature.bonus.ui.overview.BonusItem
-import com.zagart.navigation.template.feature.bonus.ui.overview.BonusLane
+import com.zagart.navigation.template.feature.bonus.ui.bonusbox.AdvertisementViewData
+import com.zagart.navigation.template.feature.bonus.ui.bonusbox.BonusBoxBannerViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusItem
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusLane
 import com.zagart.navigation.template.feature.bonus.ui.overview.BonusScreenState
 import com.zagart.navigation.template.feature.product.domain.ProductRepository
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
@@ -35,8 +37,11 @@ class BonusViewModel @Inject constructor() : NavigationViewModel() {
                 currentState.copy(
                     title = "Bonus",
                     lanes = listOf(
-                        BonusLane(products.map { BonusItem.Product(it) }),
-                        BonusLane(bonusGroups.map { BonusItem.BonusGroup(it) }),
+                        BonusLane.BonusBoxBanner(BonusBoxBannerViewData("Bonus Box")),
+                        BonusLane.HorizontalList(products.map { BonusItem.Product(it) }),
+                        BonusLane.Advertisement(AdvertisementViewData(products[1])),
+                        BonusLane.HorizontalList(bonusGroups.map { BonusItem.BonusGroup(it) }),
+                        BonusLane.Advertisement(AdvertisementViewData(products[3])),
                     )
                 )
             }

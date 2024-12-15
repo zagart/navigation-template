@@ -2,14 +2,23 @@ package com.zagart.navigation.template.presentation.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.ui.Tab
 import kotlinx.coroutines.launch
 
 abstract class NavigationViewModel : ViewModel() {
 
     open fun onBackClick() {
         sendDestination(BackDestination())
+    }
+
+    open fun onBonusBoxClick(backstackIndex: Int) {
+        sendDestination(
+            BonusBoxDestination(
+                args = Destination.Args(backstackIndex)
+            )
+        )
     }
 
     open fun onBonusGroupClick(bonusGroup: BonusGroupViewData, backstackIndex: Int) {

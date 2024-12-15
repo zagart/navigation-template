@@ -19,7 +19,7 @@ interface Destination {
         val showTopBar: Boolean = true,
         val showBottomBar: Boolean = true,
         val type: Type = Type.FULLSCREEN,
-        val timestamp: Long = System.currentTimeMillis() //Making each destination unique,
+        val timestamp: Long = System.currentTimeMillis(), //Making each destination unique
     ) {
 
         // [Workaround] Navigation library does not parse custom NavTypes correctly
@@ -33,6 +33,11 @@ interface Destination {
 
 @Serializable
 class BackDestination(
+    override val args: Destination.Args = Destination.Args(),
+) : Destination
+
+@Serializable
+class BonusBoxDestination(
     override val args: Destination.Args = Destination.Args(),
 ) : Destination
 

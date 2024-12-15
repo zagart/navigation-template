@@ -1,8 +1,8 @@
-package com.zagart.navigation.template.feature.bonus.presentation
+package com.zagart.navigation.template.feature.bonus.presentation.segment
 
 import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.domain.BonusGroupRepository
-import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupViewData
+import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.bonus.ui.segment.BonusGroupScreenState
 import com.zagart.navigation.template.feature.product.ui.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination

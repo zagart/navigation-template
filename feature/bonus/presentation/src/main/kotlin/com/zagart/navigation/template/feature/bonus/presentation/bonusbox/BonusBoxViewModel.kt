@@ -8,7 +8,7 @@ import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGr
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusItem
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusLane
 import com.zagart.navigation.template.feature.product.domain.ProductRepository
-import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import com.zagart.navigation.template.ui.Tab

@@ -32,6 +32,6 @@ fun BonusNavHost(
                 destination = destination,
             )
         }
-        screen<ProductDetailsDestination> { ProductDetailsScreen(Tab.BONUS.ordinal) }
+        screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }
 }

@@ -9,7 +9,7 @@ import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusIt
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusLane
 import com.zagart.navigation.template.feature.bonus.ui.overview.BonusScreenState
 import com.zagart.navigation.template.feature.product.domain.ProductRepository
-import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

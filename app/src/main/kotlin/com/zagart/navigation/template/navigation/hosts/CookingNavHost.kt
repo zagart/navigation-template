@@ -10,8 +10,8 @@ import com.zagart.navigation.template.navigation.screen
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.CookingDestination
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
-import com.zagart.navigation.template.ui.Tab
 import com.zagart.navigation.template.product.presentation.details.ProductDetailsScreen
+import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun CookingNavHost(
@@ -29,6 +29,6 @@ fun CookingNavHost(
                 destination = destination,
             )
         }
-        screen<ProductDetailsDestination> { ProductDetailsScreen(Tab.COOKING.ordinal) }
+        screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }
 }

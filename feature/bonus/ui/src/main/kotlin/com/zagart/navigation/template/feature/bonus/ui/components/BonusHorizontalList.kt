@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusItem
-import com.zagart.navigation.template.feature.product.ui.ProductCard
-import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.feature.product.ui.components.ProductCard
+import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 
 @Composable
 fun BonusHorizontalList(

@@ -1,4 +1,4 @@
-package com.zagart.navigation.template.product.presentation
+package com.zagart.navigation.template.product.presentation.overview
 
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

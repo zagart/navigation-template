@@ -1,4 +1,4 @@
-package com.zagart.navigation.template.product.presentation
+package com.zagart.navigation.template.product.presentation.overview
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable

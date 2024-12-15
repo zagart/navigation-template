@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.domain.BonusGroupRepository
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.bonus.ui.segment.BonusGroupScreenState
-import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

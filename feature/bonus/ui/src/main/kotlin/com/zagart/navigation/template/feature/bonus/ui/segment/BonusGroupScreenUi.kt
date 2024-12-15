@@ -9,7 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.zagart.navigation.template.feature.product.ui.ProductHorizontalCard
+import com.zagart.navigation.template.feature.product.ui.components.ProductHorizontalCard
 import com.zagart.navigation.template.ui.ExampleBottomBar
 import com.zagart.navigation.template.ui.ExampleTopBar
 

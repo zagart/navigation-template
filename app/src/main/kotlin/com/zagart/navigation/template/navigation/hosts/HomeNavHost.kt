@@ -29,6 +29,6 @@ fun HomeNavHost(
                 destination = destination,
             )
         }
-        screen<ProductDetailsDestination> { ProductDetailsScreen(Tab.HOME.ordinal) }
+        screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }
 }

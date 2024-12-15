@@ -7,7 +7,7 @@ import com.zagart.navigation.template.feature.home.ui.HomeItem
 import com.zagart.navigation.template.feature.home.ui.HomeLane
 import com.zagart.navigation.template.feature.home.ui.HomeScreenState
 import com.zagart.navigation.template.feature.product.domain.ProductRepository
-import com.zagart.navigation.template.feature.product.ui.ProductViewData
+import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel

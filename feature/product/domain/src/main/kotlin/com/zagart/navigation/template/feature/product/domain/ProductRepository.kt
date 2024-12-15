@@ -29,4 +29,9 @@ object ProductRepository {
     suspend fun getProducts(): List<ProductDomainData> {
         return products
     }
+
+    @Suppress("RedundantSuspendModifier")
+    suspend fun getProductById(id: String): ProductDomainData {
+        return products.first { it.id == id }
+    }
 }

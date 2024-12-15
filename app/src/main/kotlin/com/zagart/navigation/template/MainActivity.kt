@@ -70,6 +70,7 @@ class MainActivity : ComponentActivity() {
                             is CookingBackstack -> cookingNavController.open(destination)
                             is ProductsBackstack -> productsNavController.open(destination)
                             is MyListBackstack -> myListNavController.open(destination)
+                            else -> {}
                         }
                     }
                 }
@@ -80,6 +81,7 @@ class MainActivity : ComponentActivity() {
                     is CookingBackstack -> CookingNavHost(cookingNavController)
                     is ProductsBackstack -> ProductsNavHost(productsNavController)
                     is MyListBackstack -> MyListNavHost(myListNavController)
+                    else -> {}
                 }
             }
         }

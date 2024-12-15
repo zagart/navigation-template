@@ -16,10 +16,29 @@ val defaultTypeMap = mapOf(
     typeOf<Destination.Args>() to DestinationArgsNavType()
 )
 
-inline fun <reified T : Any> NavGraphBuilder.screen(
+inline fun <reified T : Destination> NavGraphBuilder.screen(
     noinline content: @Composable AnimatedContentScope.(T) -> Unit
 ) {
-    composable<T>(typeMap = defaultTypeMap) { entry -> content(entry.toRoute()) }
+    screenWithBackground<T> { destination, _ -> content(destination) }
+}
+
+inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
+    noinline content: @Composable AnimatedContentScope.(T, (@Composable () -> Unit)?) -> Unit
+) {
+    composable<T>(typeMap = defaultTypeMap) { entry ->
+        val destination = entry.toRoute<T>()
+        val backgroundDestination = when (val type = destination.args.type) {
+            is Destination.Type.BottomSheet -> type.background
+            is Destination.Type.Dialog -> type.background
+            is Destination.Type.Fullscreen -> null
+        }
+
+        content(destination) {
+            if (backgroundDestination != null) {
+                ScreenComposableFactory.ScreenByDestination(backgroundDestination)
+            }
+        }
+    }
 }
 
 /**

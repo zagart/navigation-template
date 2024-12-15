@@ -53,7 +53,7 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
                 id = bonusGroup.id,
                 args = Destination.Args(
                     backstackIndex = backstackIndex,
-                    type = Destination.Type.FULLSCREEN
+                    type = Destination.Type.Fullscreen
                 )
             )
         )

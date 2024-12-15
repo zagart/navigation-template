@@ -8,6 +8,7 @@ import com.zagart.navigation.template.feature.bonus.presentation.overview.BonusS
 import com.zagart.navigation.template.feature.bonus.presentation.segment.BonusGroupScreen
 import com.zagart.navigation.template.navigation.defaultTypeMap
 import com.zagart.navigation.template.navigation.screen
+import com.zagart.navigation.template.navigation.screenWithBackground
 import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.BonusDestination
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
@@ -25,7 +26,16 @@ fun BonusNavHost(
     ) {
         screen<BonusDestination> { BonusScreen() }
         screen<BonusBoxDestination> { BonusBoxScreen(it) }
-        screen<BonusGroupDestination> { BonusGroupScreen(it) }
-        screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
+        screenWithBackground<BonusGroupDestination> { destination, background ->
+            BonusGroupScreen(
+                destination = destination,
+                background = background,
+            )
+        }
+        screenWithBackground<ProductDetailsDestination> { destination, background ->
+            ProductDetailsScreen(
+                destination = destination,
+                background = background,)
+        }
     }
 }

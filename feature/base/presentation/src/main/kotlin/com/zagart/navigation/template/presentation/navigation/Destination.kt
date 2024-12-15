@@ -4,7 +4,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-interface Destination {
+@Serializable
+sealed interface Destination {
 
     val args: Args
 
@@ -18,7 +19,7 @@ interface Destination {
         val backstackIndex: Int = -1,
         val showTopBar: Boolean = true,
         val showBottomBar: Boolean = true,
-        val type: Type = Type.FULLSCREEN,
+        val type: Type = Type.Fullscreen,
         val timestamp: Long = System.currentTimeMillis(), //Making each destination unique
     ) {
 
@@ -28,7 +29,22 @@ interface Destination {
         }
     }
 
-    enum class Type { FULLSCREEN, DIALOG, BOTTOM_SHEET }
+    @Serializable
+    sealed interface Type {
+
+        @Serializable
+        data object Fullscreen : Type
+
+        @Serializable
+        data class Dialog(
+            val background: Destination
+        ) : Type
+
+        @Serializable
+        data class BottomSheet(
+            val background: Destination
+        ) : Type
+    }
 }
 
 @Serializable

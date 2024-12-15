@@ -28,6 +28,7 @@ fun BonusGroupScreen(
     destination: BonusGroupDestination,
     modifier: Modifier = Modifier,
     viewModel: BonusGroupViewModel = hiltViewModel(),
+    background: @Composable (() -> Unit)? = null,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
@@ -44,15 +45,19 @@ fun BonusGroupScreen(
     BackHandler(onBack = viewModel::onBackClick)
 
     when (destination.args.type) {
-        Destination.Type.FULLSCREEN -> BonusGroupScreenUi(
+        is Destination.Type.Fullscreen -> BonusGroupScreenUi(
             modifier = modifier,
             state = state,
             actions = actions
         )
 
-        Destination.Type.DIALOG -> Dialog(
+        is Destination.Type.Dialog -> Dialog(
             onDismissRequest = viewModel::onBackClick
         ) {
+            if (background != null) {
+                background()
+            }
+
             BonusGroupScreenUi(
                 modifier = modifier.size(400.dp),
                 state = state,
@@ -60,11 +65,15 @@ fun BonusGroupScreen(
             )
         }
 
-        Destination.Type.BOTTOM_SHEET -> Box(
+        is Destination.Type.BottomSheet -> Box(
             modifier = modifier
                 .background(Color.Gray.copy(alpha = 0.8f))
                 .fillMaxSize()
         ) {
+            if (background != null) {
+                background()
+            }
+
             BonusGroupScreenUi(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

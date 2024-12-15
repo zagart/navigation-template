@@ -25,9 +25,11 @@ import javax.inject.Inject
 class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
 
     private val _state = MutableStateFlow(BonusBoxScreenState())
+    private var _currentDestination = BonusBoxDestination()
     val state = _state.asStateFlow()
 
     fun load(destination: BonusBoxDestination) {
+        _currentDestination = destination
         viewModelScope.launch {
             val products = ProductRepository.getProducts().map {
                 ProductViewData(it.id, it.title)
@@ -64,7 +66,7 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
                 id = bonusGroup.id,
                 args = Destination.Args(
                     backstackIndex = _state.value.currentTab.ordinal,
-                    type = Destination.Type.BOTTOM_SHEET,
+                    type = Destination.Type.BottomSheet(_currentDestination),
                     showTopBar = false,
                 )
             )

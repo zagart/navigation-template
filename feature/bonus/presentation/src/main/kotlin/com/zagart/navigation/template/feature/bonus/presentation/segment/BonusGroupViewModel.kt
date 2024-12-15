@@ -7,6 +7,7 @@ import com.zagart.navigation.template.feature.bonus.ui.segment.BonusGroupScreenS
 import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
+import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
 import com.zagart.navigation.template.ui.Tab
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,9 +20,11 @@ import javax.inject.Inject
 class BonusGroupViewModel @Inject constructor() : NavigationViewModel() {
 
     private val _state = MutableStateFlow(BonusGroupScreenState())
+    private var _currentDestination = BonusGroupDestination("")
     val state = _state.asStateFlow()
 
     fun load(destination: BonusGroupDestination) {
+        _currentDestination = destination
         viewModelScope.launch {
             val bonusGroup = BonusGroupRepository.getBonusGroupById(destination.id)
             _state.update { currentState ->
@@ -37,6 +40,11 @@ class BonusGroupViewModel @Inject constructor() : NavigationViewModel() {
     }
 
     fun onProductClick(product: ProductViewData) {
-        super.onProductClick(product, _state.value.currentTab.ordinal)
+        sendDestination(
+            ProductDetailsDestination(
+                id = product.id,
+                args = _currentDestination.args
+            )
+        )
     }
 }

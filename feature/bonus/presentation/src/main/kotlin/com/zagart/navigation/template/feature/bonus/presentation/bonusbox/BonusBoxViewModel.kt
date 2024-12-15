@@ -25,7 +25,7 @@ import javax.inject.Inject
 class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
 
     private val _state = MutableStateFlow(BonusBoxScreenState())
-    private var _currentDestination = BonusBoxDestination()
+    private var _currentDestination: BonusBoxDestination = BonusBoxDestination()
     val state = _state.asStateFlow()
 
     fun load(destination: BonusBoxDestination) {
@@ -64,10 +64,9 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
         sendDestination(
             BonusGroupDestination(
                 id = bonusGroup.id,
-                args = Destination.Args(
-                    backstackIndex = _state.value.currentTab.ordinal,
-                    type = Destination.Type.BottomSheet(_currentDestination),
-                    showTopBar = false,
+                args = _currentDestination.args.copy(
+                    type = Destination.Type.Dialog(_currentDestination),
+                    showBottomBar = false
                 )
             )
         )

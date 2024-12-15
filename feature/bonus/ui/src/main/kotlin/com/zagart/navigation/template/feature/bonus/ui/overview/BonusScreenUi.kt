@@ -1,6 +1,7 @@
 package com.zagart.navigation.template.feature.bonus.ui.overview
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ fun BonusScreenUi(
     actions: BonusScreenActions = BonusScreenActions(),
     backstackIndex: Int = 1,
 ) {
+    val listState = rememberLazyListState()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -25,6 +27,7 @@ fun BonusScreenUi(
         content = { padding ->
             BonusLanesContent(
                 modifier = Modifier.padding(padding),
+                listState = listState,
                 lanes = state.lanes,
                 actions = actions.bonusLanesActions
             )

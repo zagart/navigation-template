@@ -35,7 +35,8 @@ fun BonusNavHost(
         screenWithBackground<ProductDetailsDestination> { destination, background ->
             ProductDetailsScreen(
                 destination = destination,
-                background = background,)
+                background = background,
+            )
         }
     }
 }

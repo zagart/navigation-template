@@ -75,7 +75,9 @@ fun Project.module(
     if (name.contains(".presentation")) {
         setupCompose()
         dependencies {
-            if (!name.contains("base.presentation")) {
+            if (name.contains("base.presentation")) {
+                add("implementation", library("material3"))
+            } else {
                 add("implementation", project(":feature:base:presentation"))
             }
 

@@ -3,7 +3,9 @@ package com.zagart.navigation.template.feature.bonus.ui.components
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -13,11 +15,14 @@ import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusLa
 fun BonusLanesContent(
     lanes: List<BonusLane>,
     modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
     actions: BonusLanesActions = BonusLanesActions(),
 ) {
     LazyColumn(
         modifier = modifier,
+        state = listState,
     ) {
+        item { Spacer(modifier = Modifier.height(8.dp)) }
         items(lanes) { lane ->
             when (lane) {
                 is BonusLane.Advertisement -> AdvertisementCard(

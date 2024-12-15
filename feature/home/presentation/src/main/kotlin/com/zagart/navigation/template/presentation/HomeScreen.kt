@@ -16,12 +16,19 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
+    val backstackIndex = Tab.HOME.ordinal
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
         HomeScreenActions(
+            onBonusBoxBannerClick = { viewModel.onBonusBoxClick(backstackIndex) },
             onBottomBarItemClick = viewModel::onBottomBarItemClick,
-            onProductClick = { viewData -> viewModel.onProductClick(viewData, Tab.HOME.ordinal) },
-            onBonusGroupClick = { viewData -> viewModel.onBonusGroupClick(viewData, Tab.HOME.ordinal) }
+            onProductClick = { viewData -> viewModel.onProductClick(viewData, backstackIndex) },
+            onBonusGroupClick = { viewData ->
+                viewModel.onBonusGroupClick(
+                    viewData,
+                    backstackIndex
+                )
+            }
         )
     }
 
@@ -30,6 +37,6 @@ fun HomeScreen(
         modifier = modifier,
         state = state,
         actions = actions,
-        tabIndex = Tab.HOME.ordinal,
+        tabIndex = backstackIndex,
     )
 }

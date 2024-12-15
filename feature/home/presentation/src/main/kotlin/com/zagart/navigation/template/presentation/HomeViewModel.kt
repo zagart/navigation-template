@@ -2,6 +2,7 @@ package com.zagart.navigation.template.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.domain.BonusGroupRepository
+import com.zagart.navigation.template.feature.bonus.ui.bonusbox.BonusBoxBannerViewData
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.home.ui.HomeItem
 import com.zagart.navigation.template.feature.home.ui.HomeLane
@@ -36,11 +37,11 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
             _state.update { currentState ->
                 currentState.copy(
                     lanes = arrayListOf(
-                        HomeLane(items = products.map { HomeItem.Product(it) }),
-                        HomeLane(items = products.map { HomeItem.Product(it) }),
-                        HomeLane(items = bonusGroups.map { HomeItem.BonusGroup(it) }),
-                        HomeLane(items = products.map { HomeItem.Product(it) }),
-                        HomeLane(items = products.map { HomeItem.Product(it) }),
+                        HomeLane.HorizontalList(products.map { HomeItem.Product(it) }),
+                        HomeLane.BonusBoxBanner(BonusBoxBannerViewData("Bonus Box")),
+                        HomeLane.HorizontalList(bonusGroups.map { HomeItem.BonusGroup(it) }),
+                        HomeLane.HorizontalList(products.map { HomeItem.Product(it) }),
+                        HomeLane.HorizontalList(bonusGroups.map { HomeItem.BonusGroup(it) }),
                     )
                 )
             }

@@ -13,7 +13,6 @@ import com.zagart.navigation.template.presentation.navigation.BonusDestination
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
 import com.zagart.navigation.template.product.presentation.details.ProductDetailsScreen
-import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun BonusNavHost(
@@ -26,12 +25,7 @@ fun BonusNavHost(
     ) {
         screen<BonusDestination> { BonusScreen() }
         screen<BonusBoxDestination> { BonusBoxScreen(it) }
-        screen<BonusGroupDestination> { destination ->
-            BonusGroupScreen(
-                tab = Tab.BONUS,
-                destination = destination,
-            )
-        }
+        screen<BonusGroupDestination> { BonusGroupScreen(it) }
         screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }
 }

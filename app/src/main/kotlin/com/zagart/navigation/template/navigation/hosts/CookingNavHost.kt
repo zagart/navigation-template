@@ -11,7 +11,6 @@ import com.zagart.navigation.template.presentation.navigation.BonusGroupDestinat
 import com.zagart.navigation.template.presentation.navigation.CookingDestination
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
 import com.zagart.navigation.template.product.presentation.details.ProductDetailsScreen
-import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun CookingNavHost(
@@ -23,12 +22,7 @@ fun CookingNavHost(
         typeMap = defaultTypeMap,
     ) {
         screen<CookingDestination> { CookingScreen() }
-        screen<BonusGroupDestination> { destination ->
-            BonusGroupScreen(
-                tab = Tab.COOKING,
-                destination = destination,
-            )
-        }
+        screen<BonusGroupDestination> { BonusGroupScreen(it) }
         screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }
 }

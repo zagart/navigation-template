@@ -9,7 +9,6 @@ import com.zagart.navigation.template.navigation.defaultTypeMap
 import com.zagart.navigation.template.navigation.screen
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.MyListDestination
-import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun MyListNavHost(
@@ -21,11 +20,6 @@ fun MyListNavHost(
         typeMap = defaultTypeMap,
     ) {
         screen<MyListDestination> { MyListScreen() }
-        screen<BonusGroupDestination> { destination ->
-            BonusGroupScreen(
-                tab = Tab.MY_LIST,
-                destination = destination,
-            )
-        }
+        screen<BonusGroupDestination> { BonusGroupScreen(it) }
     }
 }

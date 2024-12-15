@@ -15,36 +15,37 @@ import com.zagart.navigation.template.ui.ExampleTopBar
 
 @Composable
 fun BonusGroupScreenUi(
-    tabIndex: Int,
     state: BonusGroupScreenState,
     modifier: Modifier = Modifier,
-    showBottomBar: Boolean = true,
     actions: BonusGroupActions = BonusGroupActions(),
 ) {
     Scaffold(
         modifier = modifier,
         topBar = {
-            ExampleTopBar(state.bonusGroup.title)
+            if (state.showTopBar) {
+                ExampleTopBar(state.bonusGroup.title)
+            }
+        },
+        content = { padding ->
+            LazyColumn(
+                modifier = Modifier.padding(padding),
+            ) {
+                items(state.products) { product ->
+                    ProductHorizontalCard(
+                        viewData = product,
+                        onClick = actions.onProductClick
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                }
+            }
         },
         bottomBar = {
-            if (showBottomBar) {
+            if (state.showBottomBar) {
                 ExampleBottomBar(
-                    selectedItemIndex = tabIndex,
+                    selectedItemIndex = state.currentTab.ordinal,
                     onItemClicked = actions.onBottomBarItemClick,
                 )
             }
         }
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier.padding(padding),
-        ) {
-            items(state.products) { product ->
-                ProductHorizontalCard(
-                    viewData = product,
-                    onClick = actions.onProductClick
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-            }
-        }
-    }
+    )
 }

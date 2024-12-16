@@ -1,23 +1,32 @@
 package com.zagart.navigation.template.presentation.navigation
 
 import android.os.Parcelable
+import com.zagart.navigation.template.ui.Tab
 import kotlinx.parcelize.Parcelize
 
-abstract class Backstack(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination
+sealed interface Backstack : Destination
 
 @Parcelize
-class BonusBackstack : Backstack(), Parcelable
+data class BonusBackstack(
+    override val args: Destination.Args = Destination.Args(Tab.BONUS.ordinal),
+) : Backstack, Parcelable
 
 @Parcelize
-class CookingBackstack : Backstack(), Parcelable
+data class CookingBackstack(
+    override val args: Destination.Args = Destination.Args(Tab.COOKING.ordinal),
+) : Backstack, Parcelable
 
 @Parcelize
-class HomeBackstack : Backstack(), Parcelable
+data class HomeBackstack(
+    override val args: Destination.Args = Destination.Args(Tab.HOME.ordinal),
+) : Backstack, Parcelable
 
 @Parcelize
-class MyListBackstack : Backstack(), Parcelable
+data class MyListBackstack(
+    override val args: Destination.Args = Destination.Args(Tab.MY_LIST.ordinal),
+) : Backstack, Parcelable
 
 @Parcelize
-class ProductsBackstack : Backstack(), Parcelable
+data class ProductsBackstack(
+    override val args: Destination.Args = Destination.Args(Tab.PRODUCTS.ordinal),
+) : Backstack, Parcelable

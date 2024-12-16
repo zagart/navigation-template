@@ -38,6 +38,7 @@
                 <data android:host="www.ah.be" />
 
                 <data android:pathPattern="/home" />
+                <data android:pathPattern="/home/product" />
                 <data android:pathPattern="/bonus" />
                 <data android:pathPattern="/bonusbox" />
                 <data android:pathPattern="/cooking" />

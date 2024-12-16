@@ -15,34 +15,43 @@ object DeeplinkConverter {
 
     fun apply(uri: Uri?): List<Destination> {
         val segments = uri?.pathSegments.orEmpty()
+
+        if (segments.isEmpty()) {
+            return emptyList()
+        }
+
+        val backstackIndex = segments.first().asDestination().args.backstackIndex
+
         return segments.fold(mutableListOf()) { destinations, segment ->
-            destinations.apply { addAll(segment.asDestinations()) }
+            destinations.apply { addAll(segment.asDestinations(backstackIndex)) }
         }
     }
 }
 
-private fun String.asDestinations(): List<Destination> {
+private fun String.asDestinations(backstackIndex: Int = -1): List<Destination> {
     val destinations = mutableListOf<Destination>()
 
-    when (this) {
-        "home" -> destinations.add(HomeBackstack())
-        "bonus" -> destinations.add(BonusBackstack())
-        "bonusbox" -> destinations.apply {
+    when (val destination = asDestination(backstackIndex)) {
+        is BonusBoxDestination -> destinations.apply {
             add(BonusBackstack())
-            add(
-                BonusBoxDestination(
-                    args = Destination.Args(
-                        backstackIndex = Tab.BONUS.ordinal
-                    )
-                )
-            )
+            add(destination)
         }
-        "cooking" -> destinations.add(CookingBackstack())
-        "products" -> destinations.add(ProductsBackstack())
-        "mylist" -> destinations.add(MyListBackstack())
-        "product" -> destinations.add(ProductDetailsDestination(id = "1"))
-        else -> throw IllegalArgumentException("Unsupported destination: $this")
+
+        else -> destinations.add(destination)
     }
 
     return destinations
+}
+
+private fun String.asDestination(backstackIndex: Int = -1): Destination {
+    return when (this) {
+        "home" -> HomeBackstack()
+        "bonus" -> BonusBackstack()
+        "bonusbox" -> BonusBoxDestination(Destination.Args(Tab.BONUS.ordinal))
+        "cooking" -> CookingBackstack()
+        "products" -> ProductsBackstack()
+        "mylist" -> MyListBackstack()
+        "product" -> ProductDetailsDestination(id = "1", Destination.Args(backstackIndex))
+        else -> throw IllegalArgumentException("Unsupported destination: $this")
+    }
 }

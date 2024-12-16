@@ -20,6 +20,7 @@ import com.zagart.navigation.template.navigation.hosts.HomeNavHost
 import com.zagart.navigation.template.navigation.hosts.MyListNavHost
 import com.zagart.navigation.template.navigation.hosts.ProductsNavHost
 import com.zagart.navigation.template.presentation.navigation.BackDestination
+import com.zagart.navigation.template.presentation.navigation.Backstack
 import com.zagart.navigation.template.presentation.navigation.BonusBackstack
 import com.zagart.navigation.template.presentation.navigation.CookingBackstack
 import com.zagart.navigation.template.presentation.navigation.Destination
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
                 val productsNavController = rememberNavController()
                 val myListNavController = rememberNavController()
 
-                var currentBackstack: Destination by rememberSaveable {
+                var currentBackstack: Backstack by rememberSaveable {
                     mutableStateOf(HomeBackstack())
                 }
                 val destination = DestinationChannel
@@ -58,19 +59,21 @@ class MainActivity : ComponentActivity() {
                     .value
 
                 LaunchedEffect(destination) {
-                    when (destination) {
-                        is HomeBackstack -> currentBackstack = HomeBackstack()
-                        is BonusBackstack -> currentBackstack = BonusBackstack()
-                        is CookingBackstack -> currentBackstack = CookingBackstack()
-                        is ProductsBackstack -> currentBackstack = ProductsBackstack()
-                        is MyListBackstack -> currentBackstack = MyListBackstack()
-                        else -> when (currentBackstack) {
+                    if (destination is Backstack) {
+                        currentBackstack = when (destination) {
+                            is HomeBackstack -> HomeBackstack()
+                            is BonusBackstack -> BonusBackstack()
+                            is CookingBackstack -> CookingBackstack()
+                            is ProductsBackstack -> ProductsBackstack()
+                            is MyListBackstack -> MyListBackstack()
+                        }
+                    } else {
+                        when (currentBackstack) {
                             is HomeBackstack -> homeNavController.open(destination)
                             is BonusBackstack -> bonusNavController.open(destination)
                             is CookingBackstack -> cookingNavController.open(destination)
                             is ProductsBackstack -> productsNavController.open(destination)
                             is MyListBackstack -> myListNavController.open(destination)
-                            else -> {}
                         }
                     }
                 }
@@ -81,7 +84,6 @@ class MainActivity : ComponentActivity() {
                     is CookingBackstack -> CookingNavHost(cookingNavController)
                     is ProductsBackstack -> ProductsNavHost(productsNavController)
                     is MyListBackstack -> MyListNavHost(myListNavController)
-                    else -> {}
                 }
             }
         }

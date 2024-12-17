@@ -29,6 +29,7 @@ fun BonusBoxScreen(
                 onBonusGroupClick = { viewModel.onBonusGroupClick(it, backstackIndex) },
                 onProductClick = { viewModel.onProductClick(it, backstackIndex) }
             ),
+            onBack = viewModel::onBack,
             onBottomBarItemClick = viewModel::onBottomBarItemClick
         )
     }
@@ -37,7 +38,7 @@ fun BonusBoxScreen(
         viewModel.load(destination)
     }
 
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     BonusBoxScreenUi(
         state = state,
         modifier = modifier,

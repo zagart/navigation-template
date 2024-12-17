@@ -18,7 +18,10 @@ fun BonusBoxScreenUi(
         modifier = modifier,
         topBar = {
             if (state.showTopBar) {
-                ExampleTopBar(title = state.title)
+                ExampleTopBar(
+                    title = state.title,
+                    onBack = actions.onBack,
+                )
             }
         },
         content = { padding ->

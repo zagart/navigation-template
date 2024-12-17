@@ -23,6 +23,7 @@ fun ProductDetailsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
         ProductDetailsScreenActions(
+            onBack = viewModel::onBack,
             onBottomBarItemClick = viewModel::onBottomBarItemClick
         )
     }
@@ -31,7 +32,7 @@ fun ProductDetailsScreen(
         viewModel.load(destination)
     }
 
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     DestinationTypeWrapper(
         modifier = modifier,
         type = destination.args.type,
@@ -43,6 +44,6 @@ fun ProductDetailsScreen(
                 actions = actions,
             )
         },
-        onDismissRequest = viewModel::onBackClick
+        onDismissRequest = viewModel::onBack
     )
 }

@@ -3,8 +3,11 @@ package com.zagart.navigation.template.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -66,7 +69,9 @@ fun DestinationTypeWrapper(
                     .clip(MaterialTheme.shapes.large)
             ) {
                 content(
-                    Modifier.size(400.dp)
+                    Modifier
+                        .size(400.dp)
+                        .consumeWindowInsets(WindowInsets.systemBars)
                 )
             }
         }

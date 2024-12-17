@@ -23,6 +23,7 @@ fun BonusGroupScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
         BonusGroupActions(
+            onBack = viewModel::onBack,
             onProductClick = viewModel::onProductClick,
             onBottomBarItemClick = viewModel::onBottomBarItemClick
         )
@@ -32,7 +33,7 @@ fun BonusGroupScreen(
         viewModel.load(destination)
     }
 
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     DestinationTypeWrapper(
         modifier = modifier,
         type = destination.args.type,
@@ -44,6 +45,6 @@ fun BonusGroupScreen(
                 actions = actions
             )
         },
-        onDismissRequest = viewModel::onBackClick
+        onDismissRequest = viewModel::onBack
     )
 }

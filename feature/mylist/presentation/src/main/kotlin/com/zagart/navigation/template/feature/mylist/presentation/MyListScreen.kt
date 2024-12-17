@@ -12,7 +12,7 @@ fun MyListScreen(
     modifier: Modifier = Modifier,
     viewModel: MyListViewModel = hiltViewModel(),
 ) {
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     DummyScreen(
         modifier = modifier,
         title = "My List",

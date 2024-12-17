@@ -12,7 +12,7 @@ fun CookingScreen(
     modifier: Modifier = Modifier,
     viewModel: CookingViewModel = hiltViewModel(),
 ) {
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     DummyScreen(
         modifier = modifier,
         title = "Cooking",

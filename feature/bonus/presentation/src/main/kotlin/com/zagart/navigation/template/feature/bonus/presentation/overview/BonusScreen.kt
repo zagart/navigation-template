@@ -35,7 +35,7 @@ fun BonusScreen(
         )
     }
 
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     BonusScreenUi(
         state = state,
         modifier = modifier,

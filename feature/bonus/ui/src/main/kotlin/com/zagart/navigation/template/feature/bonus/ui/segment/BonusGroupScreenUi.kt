@@ -24,7 +24,10 @@ fun BonusGroupScreenUi(
         modifier = modifier,
         topBar = {
             if (state.showTopBar) {
-                ExampleTopBar(state.bonusGroup.title)
+                ExampleTopBar(
+                    title = state.bonusGroup.title,
+                    onBack = actions.onBack
+                )
             }
         },
         content = { padding ->

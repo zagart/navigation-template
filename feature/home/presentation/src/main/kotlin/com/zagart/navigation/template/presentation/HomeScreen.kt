@@ -32,7 +32,7 @@ fun HomeScreen(
         )
     }
 
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     HomeScreenUi(
         modifier = modifier,
         state = state,

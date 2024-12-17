@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 abstract class NavigationViewModel : ViewModel() {
 
-    open fun onBackClick() {
+    open fun onBack() {
         sendDestination(BackDestination())
     }
 

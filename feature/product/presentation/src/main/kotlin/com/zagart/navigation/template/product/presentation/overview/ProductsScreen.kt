@@ -12,7 +12,7 @@ fun ProductsScreen(
     modifier: Modifier = Modifier,
     viewModel: ProductsViewModel = hiltViewModel(),
 ) {
-    BackHandler(onBack = viewModel::onBackClick)
+    BackHandler(onBack = viewModel::onBack)
     DummyScreen(
         modifier = modifier,
         title = "Products",

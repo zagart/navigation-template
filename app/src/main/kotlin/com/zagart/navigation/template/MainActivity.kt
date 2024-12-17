@@ -22,7 +22,6 @@ import com.zagart.navigation.template.navigation.hosts.ProductsNavHost
 import com.zagart.navigation.template.presentation.navigation.BackDestination
 import com.zagart.navigation.template.presentation.navigation.Backstack
 import com.zagart.navigation.template.presentation.navigation.BonusBackstack
-import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.CookingBackstack
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.DestinationChannel

@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.zagart.navigation.template.presentation.navigation.Destination
@@ -42,11 +43,15 @@ inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
 }
 
 /**
- * [toRoute] can't parse nested destination objects, even if those
- * are serializable. Hopefully, it's temporary solution.
+ * Workaround, caused by [toRoute] being not able to parse nested destination objects,
+ * even if those are serializable. Hopefully, it's temporary solution.
  */
 class DestinationArgsNavType : NavType<Destination.Args>(isNullableAllowed = false) {
 
+    /**
+     * Not being called by [NavHost] in some cases; [NavHost] calls [Any.toString] instead.
+     * Reason for [Destination.Args] workaround.
+     */
     override fun put(bundle: Bundle, key: String, value: Destination.Args) {
         bundle.putString(key, Json.encodeToString(value))
     }

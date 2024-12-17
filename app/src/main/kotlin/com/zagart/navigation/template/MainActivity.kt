@@ -22,6 +22,7 @@ import com.zagart.navigation.template.navigation.hosts.ProductsNavHost
 import com.zagart.navigation.template.presentation.navigation.BackDestination
 import com.zagart.navigation.template.presentation.navigation.Backstack
 import com.zagart.navigation.template.presentation.navigation.BonusBackstack
+import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.CookingBackstack
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.DestinationChannel
@@ -60,13 +61,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(destination) {
                     if (destination is Backstack) {
-                        currentBackstack = when (destination) {
-                            is HomeBackstack -> HomeBackstack()
-                            is BonusBackstack -> BonusBackstack()
-                            is CookingBackstack -> CookingBackstack()
-                            is ProductsBackstack -> ProductsBackstack()
-                            is MyListBackstack -> MyListBackstack()
-                        }
+                        currentBackstack = destination
                     } else {
                         when (currentBackstack) {
                             is HomeBackstack -> homeNavController.open(destination)
@@ -106,6 +101,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//TODO: Reset backstack/controller on new deeplink?
 private fun handleDeeplink(intent: Intent) {
     val destinations = DeeplinkConverter.apply(intent.data)
     val coroutineScope = CoroutineScope(Dispatchers.Main)

@@ -33,6 +33,7 @@ sealed interface Destination : Parcelable {
         }
     }
 
+    // [Decision] One screen - one representation
     @Parcelize
     @Serializable
     sealed interface Type : Parcelable {

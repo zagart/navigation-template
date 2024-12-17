@@ -1,6 +1,7 @@
 package com.zagart.navigation.template.presentation.navigation
 
 import android.os.Parcelable
+import androidx.compose.runtime.LaunchedEffect
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -16,15 +17,20 @@ sealed interface Destination : Parcelable {
      * [Args] represents initial destination state, properties should be feature-agnostic.
      * Initial properties impact can be overridden by feature-specific presentation layer.
      * Feature-specific properties can be added to [Destination] implementations.
+     * @property backstackIndex Index of backstack to which this screen belongs to.
+     * @property topBarScope Defines scope where top bar should be shown.
+     * @property bottomBarScope Defines scope where top bar should be shown.
+     * @property type Representation of screen (bad practice, to be removed).
+     * @property timestamp Makes each destination unique (destinations consumed by [LaunchedEffect]])
      */
     @Parcelize
     @Serializable
     data class Args(
         val backstackIndex: Int = -1,
-        val showTopBar: Boolean = true,
-        val showBottomBar: Boolean = true,
+        val topBarScope: ComponentScope = ComponentScope.Screen,
+        val bottomBarScope: ComponentScope = ComponentScope.Application,
         val type: Type = Type.Fullscreen,
-        val timestamp: Long = System.currentTimeMillis(), //Making each destination unique
+        val timestamp: Long = System.currentTimeMillis(),
     ) : Parcelable {
 
         // [Workaround] Navigation library does not parse custom NavTypes correctly
@@ -32,6 +38,8 @@ sealed interface Destination : Parcelable {
             return Json.encodeToString(this)
         }
     }
+
+    enum class ComponentScope { Application, Screen, None }
 
     // [Decision] One screen - one representation
     @Parcelize
@@ -56,58 +64,14 @@ sealed interface Destination : Parcelable {
     }
 }
 
-@Parcelize
-@Serializable
-class BackDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
+fun Destination.ComponentScope.isApplication(): Boolean {
+    return this == Destination.ComponentScope.Application
+}
 
-@Parcelize
-@Serializable
-class BonusBoxDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
+fun Destination.ComponentScope.isScreen(): Boolean {
+    return this == Destination.ComponentScope.Screen
+}
 
-@Parcelize
-@Serializable
-class BonusDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
-
-@Parcelize
-@Serializable
-class BonusGroupDestination(
-    val id: String,
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
-
-@Parcelize
-@Serializable
-class CookingDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
-
-@Parcelize
-@Serializable
-class HomeDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
-
-@Parcelize
-@Serializable
-class MyListDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
-
-@Parcelize
-@Serializable
-data class ProductDetailsDestination(
-    val id: String,
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
-
-@Parcelize
-@Serializable
-class ProductsDestination(
-    override val args: Destination.Args = Destination.Args(),
-) : Destination, Parcelable
+fun Destination.ComponentScope.isNone(): Boolean {
+    return this == Destination.ComponentScope.None
+}

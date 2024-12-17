@@ -8,6 +8,7 @@ import com.zagart.navigation.template.feature.product.ui.components.ProductViewD
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
+import com.zagart.navigation.template.presentation.navigation.isScreen
 import com.zagart.navigation.template.ui.Tab
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,8 +33,8 @@ class BonusGroupViewModel @Inject constructor() : NavigationViewModel() {
                     currentTab = Tab.entries[destination.args.backstackIndex],
                     bonusGroup = BonusGroupViewData(bonusGroup.id, bonusGroup.title),
                     products = bonusGroup.products.map { ProductViewData(it.id, it.title) },
-                    showTopBar = destination.args.showTopBar,
-                    showBottomBar = destination.args.showBottomBar,
+                    showTopBar = destination.args.topBarScope.isScreen(),
+                    showBottomBar = destination.args.bottomBarScope.isScreen(),
                 )
             }
         }

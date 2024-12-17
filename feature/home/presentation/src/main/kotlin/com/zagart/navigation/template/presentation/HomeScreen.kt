@@ -37,6 +37,5 @@ fun HomeScreen(
         modifier = modifier,
         state = state,
         actions = actions,
-        tabIndex = backstackIndex,
     )
 }

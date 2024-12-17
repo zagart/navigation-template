@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import com.zagart.navigation.template.feature.bonus.ui.components.BonusBoxBannerCard
 import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupCard
 import com.zagart.navigation.template.feature.product.ui.components.ProductCard
-import com.zagart.navigation.template.ui.ExampleBottomBar
 import com.zagart.navigation.template.ui.ExampleScaffold
 import com.zagart.navigation.template.ui.ExampleTopBar
 
@@ -23,17 +22,10 @@ fun HomeScreenUi(
     state: HomeScreenState,
     modifier: Modifier = Modifier,
     actions: HomeScreenActions = HomeScreenActions(),
-    tabIndex: Int = 0,
 ) {
     ExampleScaffold(
         modifier = modifier,
         topBar = { ExampleTopBar("Home") },
-        bottomBar = {
-            ExampleBottomBar(
-                selectedItemIndex = tabIndex,
-                onItemClicked = actions.onBottomBarItemClick,
-            )
-        }
     ) { padding ->
         LazyColumn(
             modifier = Modifier.padding(padding),

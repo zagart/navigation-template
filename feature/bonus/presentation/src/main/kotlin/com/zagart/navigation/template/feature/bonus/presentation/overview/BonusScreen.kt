@@ -40,6 +40,5 @@ fun BonusScreen(
         state = state,
         modifier = modifier,
         actions = actions,
-        backstackIndex = backstackIndex
     )
 }

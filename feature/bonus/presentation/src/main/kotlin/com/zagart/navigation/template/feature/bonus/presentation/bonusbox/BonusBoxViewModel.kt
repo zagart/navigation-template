@@ -13,6 +13,7 @@ import com.zagart.navigation.template.presentation.navigation.BonusBoxDestinatio
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
+import com.zagart.navigation.template.presentation.navigation.isScreen
 import com.zagart.navigation.template.ui.Tab
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,8 +54,8 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
                     lanes = lanes,
                     currentTab = Tab.entries[destination.args.backstackIndex],
                     title = "Bonus Box",
-                    showTopBar = destination.args.showTopBar,
-                    showBottomBar = destination.args.showBottomBar,
+                    showTopBar = destination.args.topBarScope.isScreen(),
+                    showBottomBar = destination.args.bottomBarScope.isScreen(),
                 )
             }
         }
@@ -66,7 +67,6 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
                 id = bonusGroup.id,
                 args = _currentDestination.args.copy(
                     type = Destination.Type.Dialog(_currentDestination),
-                    showBottomBar = false
                 )
             )
         )

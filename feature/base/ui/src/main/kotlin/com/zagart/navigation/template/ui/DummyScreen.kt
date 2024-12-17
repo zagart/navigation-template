@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DummyScreen(
     title: String,
@@ -23,12 +22,6 @@ fun DummyScreen(
     Scaffold(
         modifier = modifier,
         topBar = { ExampleTopBar(title) },
-        bottomBar = {
-            ExampleBottomBar(
-                selectedItemIndex = tabIndex,
-                onItemClicked = onNavigationItemClick,
-            )
-        }
     ) { padding ->
         Box(modifier = Modifier
             .fillMaxSize()

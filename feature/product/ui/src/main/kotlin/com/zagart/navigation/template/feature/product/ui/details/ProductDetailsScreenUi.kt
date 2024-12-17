@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.zagart.navigation.template.ui.ExampleBottomBar
 import com.zagart.navigation.template.ui.ExampleScaffold
 import com.zagart.navigation.template.ui.ExampleTopBar
 
@@ -36,13 +35,5 @@ fun ProductDetailsScreenUi(
                 )
             }
         },
-        bottomBar = {
-            if (state.showBottomBar) {
-                ExampleBottomBar(
-                    selectedItemIndex = state.currentTab.ordinal,
-                    onItemClicked = actions.onBottomBarItemClick
-                )
-            }
-        }
     )
 }

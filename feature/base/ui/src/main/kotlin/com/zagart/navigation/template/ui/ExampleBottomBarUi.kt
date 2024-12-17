@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ExampleBottomBar(
+fun ExampleBottomBarUi(
     selectedItemIndex: Int,
     modifier: Modifier = Modifier,
     onItemClicked: (index: Int) -> Unit,

@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import com.zagart.navigation.template.feature.bonus.presentation.bonusbox.BonusBoxScreen
 import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.Destination
+import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
 
 /**
  * Should be used only for background drawing (when [Destination.Type] is
@@ -19,9 +20,12 @@ object ScreenComposableFactory {
      * it should be added here.
      */
     @Composable
-    fun ScreenByDestination(destination: Destination) {
+    fun ScreenByDestination(
+        destination: Destination,
+        scrollStateHolder: ScrollStateHolder,
+    ) {
         return when (destination) {
-            is BonusBoxDestination -> BonusBoxScreen(destination)
+            is BonusBoxDestination -> BonusBoxScreen(destination, scrollStateHolder)
             else -> throw IllegalArgumentException(
                 "Destination is not supported as background: $destination"
             )

@@ -14,10 +14,12 @@ import com.zagart.navigation.template.presentation.navigation.BonusDestination
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
 import com.zagart.navigation.template.product.presentation.details.ProductDetailsScreen
+import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
 
 @Composable
 fun BonusNavHost(
-    navController: NavHostController
+    navController: NavHostController,
+    scrollStateHolder: ScrollStateHolder,
 ) {
     NavHost(
         navController = navController,
@@ -25,14 +27,14 @@ fun BonusNavHost(
         typeMap = defaultTypeMap,
     ) {
         screen<BonusDestination> { BonusScreen() }
-        screen<BonusBoxDestination> { BonusBoxScreen(it) }
-        screenWithBackground<BonusGroupDestination> { destination, background ->
+        screen<BonusBoxDestination> { BonusBoxScreen(it, scrollStateHolder) }
+        screenWithBackground<BonusGroupDestination>(scrollStateHolder) { destination, background ->
             BonusGroupScreen(
                 destination = destination,
                 background = background,
             )
         }
-        screenWithBackground<ProductDetailsDestination> { destination, background ->
+        screenWithBackground<ProductDetailsDestination>(scrollStateHolder) { destination, background ->
             ProductDetailsScreen(
                 destination = destination,
                 background = background,

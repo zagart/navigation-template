@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.zagart.navigation.template.presentation.navigation.Destination
+import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
@@ -20,10 +21,11 @@ val defaultTypeMap = mapOf(
 inline fun <reified T : Destination> NavGraphBuilder.screen(
     noinline content: @Composable AnimatedContentScope.(T) -> Unit
 ) {
-    screenWithBackground<T> { destination, _ -> content(destination) }
+    screenWithBackground<T>(ScrollStateHolder()) { destination, _ -> content(destination) }
 }
 
 inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
+    scrollStateHolder: ScrollStateHolder,
     noinline content: @Composable AnimatedContentScope.(T, (@Composable () -> Unit)?) -> Unit
 ) {
     composable<T>(typeMap = defaultTypeMap) { entry ->
@@ -36,7 +38,7 @@ inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
 
         content(destination) {
             if (backgroundDestination != null) {
-                ScreenComposableFactory.ScreenByDestination(backgroundDestination)
+                ScreenComposableFactory.ScreenByDestination(backgroundDestination, scrollStateHolder)
             }
         }
     }

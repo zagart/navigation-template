@@ -12,10 +12,12 @@ import com.zagart.navigation.template.feature.bonus.ui.bonusbox.BonusBoxScreenAc
 import com.zagart.navigation.template.feature.bonus.ui.bonusbox.BonusBoxScreenUi
 import com.zagart.navigation.template.feature.bonus.ui.components.BonusLanesActions
 import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
+import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
 
 @Composable
 fun BonusBoxScreen(
     destination: BonusBoxDestination,
+    scrollStateHolder: ScrollStateHolder,
     modifier: Modifier = Modifier,
     viewModel: BonusBoxViewModel = hiltViewModel(),
 ) {
@@ -41,6 +43,7 @@ fun BonusBoxScreen(
     BackHandler(onBack = viewModel::onBack)
     BonusBoxScreenUi(
         state = state,
+        listState = scrollStateHolder.getListState(destination),
         modifier = modifier,
         actions = actions,
     )

@@ -26,7 +26,7 @@ fun BonusNavHost(
         startDestination = BonusDestination::class,
         typeMap = defaultTypeMap,
     ) {
-        screen<BonusDestination> { BonusScreen() }
+        screen<BonusDestination> { BonusScreen(it) }
         screen<BonusBoxDestination> { BonusBoxScreen(it, scrollStateHolder) }
         screenWithBackground<BonusGroupDestination>(scrollStateHolder) { destination, background ->
             BonusGroupScreen(

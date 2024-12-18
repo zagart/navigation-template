@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
 
 val defaultTypeMap = mapOf(
-    typeOf<Destination.Args>() to DestinationArgsNavType()
+    typeOf<Destination.Args>() to DestinationArgsNavType
 )
 
 inline fun <reified T : Destination> NavGraphBuilder.screen(
@@ -48,7 +48,7 @@ inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
  * Workaround, caused by [toRoute] being not able to parse nested destination objects,
  * even if those are serializable. Hopefully, it's temporary solution.
  */
-class DestinationArgsNavType : NavType<Destination.Args>(isNullableAllowed = false) {
+object DestinationArgsNavType : NavType<Destination.Args>(isNullableAllowed = false) {
 
     /**
      * Not being called by [NavHost] in some cases; [NavHost] calls [Any.toString] instead.

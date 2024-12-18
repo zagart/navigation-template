@@ -26,11 +26,10 @@ import javax.inject.Inject
 class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
 
     private val _state = MutableStateFlow(BonusBoxScreenState())
-    private var _currentDestination: BonusBoxDestination = BonusBoxDestination()
     val state = _state.asStateFlow()
 
     fun load(destination: BonusBoxDestination) {
-        _currentDestination = destination
+        changeCurrentDestination(destination)
         viewModelScope.launch {
             val products = ProductRepository.getProducts().map {
                 ProductViewData(it.id, it.title)
@@ -65,8 +64,8 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
         sendDestination(
             BonusGroupDestination(
                 id = bonusGroup.id,
-                args = _currentDestination.args.copy(
-                    type = Destination.Type.Dialog(_currentDestination),
+                args = currentDestination.args.copy(
+                    type = Destination.Type.Dialog(currentDestination),
                 )
             )
         )

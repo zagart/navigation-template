@@ -39,7 +39,9 @@ sealed interface Destination : Parcelable {
         }
     }
 
-    enum class ComponentScope { Application, Screen, None }
+    @Parcelize
+    @Serializable
+    enum class ComponentScope : Parcelable { Application, Screen, None }
 
     // [Decision] One screen - one representation
     @Parcelize
@@ -64,14 +66,10 @@ sealed interface Destination : Parcelable {
     }
 }
 
-fun Destination.ComponentScope.isApplication(): Boolean {
+fun Destination.ComponentScope?.isApplication(): Boolean {
     return this == Destination.ComponentScope.Application
 }
 
-fun Destination.ComponentScope.isScreen(): Boolean {
+fun Destination.ComponentScope?.isScreen(): Boolean {
     return this == Destination.ComponentScope.Screen
-}
-
-fun Destination.ComponentScope.isNone(): Boolean {
-    return this == Destination.ComponentScope.None
 }

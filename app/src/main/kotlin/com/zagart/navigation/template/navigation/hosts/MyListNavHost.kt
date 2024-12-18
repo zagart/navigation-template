@@ -19,7 +19,7 @@ fun MyListNavHost(
         startDestination = MyListDestination::class,
         typeMap = defaultTypeMap,
     ) {
-        screen<MyListDestination> { MyListScreen() }
+        screen<MyListDestination> { MyListScreen(it) }
         screen<BonusGroupDestination> { BonusGroupScreen(it) }
     }
 }

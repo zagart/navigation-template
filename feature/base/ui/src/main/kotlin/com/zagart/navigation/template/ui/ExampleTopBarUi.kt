@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExampleTopBar(
+fun ExampleTopBarUi(
     title: String,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,

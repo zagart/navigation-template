@@ -8,13 +8,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.zagart.navigation.template.navigation.deeplinks.DeeplinkConverter
@@ -24,6 +24,7 @@ import com.zagart.navigation.template.navigation.hosts.HomeNavHost
 import com.zagart.navigation.template.navigation.hosts.MyListNavHost
 import com.zagart.navigation.template.navigation.hosts.ProductsNavHost
 import com.zagart.navigation.template.presentation.components.bottombar.ExampleBottomBar
+import com.zagart.navigation.template.presentation.components.topbar.ExampleTopBar
 import com.zagart.navigation.template.presentation.navigation.BackDestination
 import com.zagart.navigation.template.presentation.navigation.Backstack
 import com.zagart.navigation.template.presentation.navigation.BonusBackstack
@@ -34,8 +35,6 @@ import com.zagart.navigation.template.presentation.navigation.HomeBackstack
 import com.zagart.navigation.template.presentation.navigation.MyListBackstack
 import com.zagart.navigation.template.presentation.navigation.ProductsBackstack
 import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
-import com.zagart.navigation.template.presentation.navigation.isApplication
-import com.zagart.navigation.template.ui.ExampleTopBar
 import com.zagart.navigation.template.ui.theme.NavigationTemplateTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -64,7 +63,7 @@ class MainActivity : ComponentActivity() {
                 }
                 val destination = DestinationChannel
                     .destinationFlow
-                    .collectAsState(currentBackstack)
+                    .collectAsStateWithLifecycle(currentBackstack)
                     .value
 
                 LaunchedEffect(destination) {
@@ -82,10 +81,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Column {
-                    if (destination.args.topBarScope.isApplication()) {
-                        ExampleTopBar("Appie")
-                    }
-
+                    ExampleTopBar()
                     Surface(modifier = Modifier.weight(1f)) {
                         when (currentBackstack) {
                             is HomeBackstack -> HomeNavHost(homeNavController, scrollStateHolder)
@@ -95,10 +91,7 @@ class MainActivity : ComponentActivity() {
                             is MyListBackstack -> MyListNavHost(myListNavController)
                         }
                     }
-
-                    if (destination.args.bottomBarScope.isApplication()) {
-                        ExampleBottomBar(selectedItemIndex = currentBackstack.args.backstackIndex)
-                    }
+                    ExampleBottomBar()
                 }
             }
         }

@@ -21,7 +21,7 @@ fun CookingNavHost(
         startDestination = CookingDestination::class,
         typeMap = defaultTypeMap,
     ) {
-        screen<CookingDestination> { CookingScreen() }
+        screen<CookingDestination> { CookingScreen(it) }
         screen<BonusGroupDestination> { BonusGroupScreen(it) }
         screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }

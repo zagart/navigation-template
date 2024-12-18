@@ -11,7 +11,9 @@ import com.zagart.navigation.template.feature.product.domain.ProductRepository
 import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.Destination
+import com.zagart.navigation.template.presentation.navigation.HomeDestination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
+import com.zagart.navigation.template.presentation.navigation.isScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +27,8 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
     private val _state = MutableStateFlow(HomeScreenState())
     val state = _state.asStateFlow()
 
-    init {
+    fun load(destination: HomeDestination) {
+        changeCurrentDestination(destination)
         viewModelScope.launch {
             val products = ProductRepository.getProducts().map {
                 ProductViewData(it.id, it.title)
@@ -36,6 +39,8 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
 
             _state.update { currentState ->
                 currentState.copy(
+                    showTopBar = destination.args.topBarScope.isScreen(),
+                    showBottomBar = destination.args.topBarScope.isScreen(),
                     lanes = arrayListOf(
                         HomeLane.HorizontalList(products.map { HomeItem.Product(it) }),
                         HomeLane.BonusBoxBanner(BonusBoxBannerViewData("Bonus Box")),
@@ -54,7 +59,8 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
                 id = bonusGroup.id,
                 args = Destination.Args(
                     backstackIndex = backstackIndex,
-                    type = Destination.Type.Fullscreen
+                    type = Destination.Type.Fullscreen,
+                    topBarScope = Destination.ComponentScope.Application,
                 )
             )
         )

@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.zagart.navigation.template.feature.product.ui.components.ProductHorizontalCard
 import com.zagart.navigation.template.ui.ExampleScaffold
-import com.zagart.navigation.template.ui.ExampleTopBar
+import com.zagart.navigation.template.ui.ExampleTopBarUi
 
 @Composable
 fun BonusGroupScreenUi(
@@ -23,7 +23,7 @@ fun BonusGroupScreenUi(
         modifier = modifier,
         topBar = {
             if (state.showTopBar) {
-                ExampleTopBar(
+                ExampleTopBarUi(
                     title = state.bonusGroup.title,
                     onBack = actions.onBack
                 )

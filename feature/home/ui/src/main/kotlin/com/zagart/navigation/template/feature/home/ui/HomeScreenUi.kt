@@ -15,7 +15,7 @@ import com.zagart.navigation.template.feature.bonus.ui.components.BonusBoxBanner
 import com.zagart.navigation.template.feature.bonus.ui.components.BonusGroupCard
 import com.zagart.navigation.template.feature.product.ui.components.ProductCard
 import com.zagart.navigation.template.ui.ExampleScaffold
-import com.zagart.navigation.template.ui.ExampleTopBar
+import com.zagart.navigation.template.ui.ExampleTopBarUi
 
 @Composable
 fun HomeScreenUi(
@@ -25,44 +25,49 @@ fun HomeScreenUi(
 ) {
     ExampleScaffold(
         modifier = modifier,
-        topBar = { ExampleTopBar("Home") },
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier.padding(padding),
-        ) {
-            item { Spacer(modifier = Modifier.size(8.dp)) }
-            items(state.lanes) { lane ->
-                when (lane) {
-                    is HomeLane.BonusBoxBanner -> BonusBoxBannerCard(
-                        viewData = lane.viewData,
-                        onClick = actions.onBonusBoxBannerClick
-                    )
+        topBar = {
+            if (state.showTopBar) {
+                ExampleTopBarUi("Home")
+            }
+        },
+        content = { padding ->
+            LazyColumn(
+                modifier = Modifier.padding(padding),
+            ) {
+                item { Spacer(modifier = Modifier.size(8.dp)) }
+                items(state.lanes) { lane ->
+                    when (lane) {
+                        is HomeLane.BonusBoxBanner -> BonusBoxBannerCard(
+                            viewData = lane.viewData,
+                            onClick = actions.onBonusBoxBannerClick
+                        )
 
-                    is HomeLane.HorizontalList -> LazyRow(
-                        contentPadding = PaddingValues(
-                            horizontal = 8.dp
-                        ),
-                    ) {
-                        items(lane.items) { item ->
-                            Row {
-                                when (item) {
-                                    is HomeItem.BonusGroup -> BonusGroupCard(
-                                        viewData = item.viewData,
-                                        onClick = actions.onBonusGroupClick
-                                    )
+                        is HomeLane.HorizontalList -> LazyRow(
+                            contentPadding = PaddingValues(
+                                horizontal = 8.dp
+                            ),
+                        ) {
+                            items(lane.items) { item ->
+                                Row {
+                                    when (item) {
+                                        is HomeItem.BonusGroup -> BonusGroupCard(
+                                            viewData = item.viewData,
+                                            onClick = actions.onBonusGroupClick
+                                        )
 
-                                    is HomeItem.Product -> ProductCard(
-                                        viewData = item.viewData,
-                                        onClick = actions.onProductClick,
-                                    )
+                                        is HomeItem.Product -> ProductCard(
+                                            viewData = item.viewData,
+                                            onClick = actions.onProductClick,
+                                        )
+                                    }
+                                    Spacer(Modifier.size(8.dp))
                                 }
-                                Spacer(Modifier.size(8.dp))
                             }
                         }
                     }
+                    Spacer(Modifier.size(8.dp))
                 }
-                Spacer(Modifier.size(8.dp))
             }
         }
-    }
+    )
 }

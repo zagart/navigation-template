@@ -22,6 +22,7 @@ class ProductDetailsViewModel @Inject constructor() : NavigationViewModel() {
     val state = _state.asStateFlow()
 
     fun load(destination: ProductDetailsDestination) {
+        changeCurrentDestination(destination)
         viewModelScope.launch {
             val product = ProductRepository
                 .getProductById(destination.id)

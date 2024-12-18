@@ -21,11 +21,10 @@ import javax.inject.Inject
 class BonusGroupViewModel @Inject constructor() : NavigationViewModel() {
 
     private val _state = MutableStateFlow(BonusGroupScreenState())
-    private var _currentDestination = BonusGroupDestination("")
     val state = _state.asStateFlow()
 
     fun load(destination: BonusGroupDestination) {
-        _currentDestination = destination
+        changeCurrentDestination(destination)
         viewModelScope.launch {
             val bonusGroup = BonusGroupRepository.getBonusGroupById(destination.id)
             _state.update { currentState ->
@@ -44,7 +43,7 @@ class BonusGroupViewModel @Inject constructor() : NavigationViewModel() {
         sendDestination(
             ProductDetailsDestination(
                 id = product.id,
-                args = _currentDestination.args
+                args = currentDestination.args
             )
         )
     }

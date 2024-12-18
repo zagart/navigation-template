@@ -4,12 +4,12 @@ import androidx.compose.runtime.Immutable
 import com.zagart.navigation.template.feature.bonus.ui.bonusbox.BonusBoxBannerViewData
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
-import com.zagart.navigation.template.ui.Tab
 
 @Immutable
 data class HomeScreenState(
-    val currentTab: Tab = Tab.HOME,
-    val lanes: List<HomeLane> = emptyList()
+    val lanes: List<HomeLane> = emptyList(),
+    val showTopBar: Boolean = true,
+    val showBottomBar: Boolean = true,
 )
 
 @Immutable

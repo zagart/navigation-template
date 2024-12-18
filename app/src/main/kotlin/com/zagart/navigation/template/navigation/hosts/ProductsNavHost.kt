@@ -21,7 +21,7 @@ fun ProductsNavHost(
         startDestination = ProductsDestination::class,
         typeMap = defaultTypeMap,
     ) {
-        screen<ProductsDestination> { ProductsScreen() }
+        screen<ProductsDestination> { ProductsScreen(it) }
         screen<BonusGroupDestination> { BonusGroupScreen(it) }
         screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }

@@ -5,9 +5,22 @@ import androidx.lifecycle.viewModelScope
 import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGroupViewData
 import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.ui.Tab
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-abstract class NavigationViewModel : ViewModel() {
+open class NavigationViewModel : ViewModel() {
+
+    val currentDestination: Destination
+        get() {
+            return currentDestinationState.value!!
+        }
+
+    protected fun changeCurrentDestination(destination: Destination) {
+        viewModelScope.launch {
+            currentDestinationState.update { destination }
+        }
+    }
 
     open fun onBack() {
         sendDestination(BackDestination())
@@ -52,5 +65,11 @@ abstract class NavigationViewModel : ViewModel() {
     @Suppress("MemberVisibilityCanBePrivate")
     protected fun sendDestination(destination: Destination) {
         viewModelScope.launch { DestinationChannel.send(destination) }
+    }
+
+    companion object {
+
+        //TODO: Check of better ways to handle state of components in application scope.
+        val currentDestinationState = MutableStateFlow<Destination?>(null)
     }
 }

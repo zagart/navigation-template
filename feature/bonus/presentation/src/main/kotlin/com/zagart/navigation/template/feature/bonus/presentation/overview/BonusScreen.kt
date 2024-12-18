@@ -2,6 +2,7 @@ package com.zagart.navigation.template.feature.bonus.presentation.overview
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -10,10 +11,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zagart.navigation.template.feature.bonus.ui.components.BonusLanesActions
 import com.zagart.navigation.template.feature.bonus.ui.overview.BonusScreenActions
 import com.zagart.navigation.template.feature.bonus.ui.overview.BonusScreenUi
+import com.zagart.navigation.template.presentation.navigation.BonusDestination
 import com.zagart.navigation.template.ui.Tab
 
 @Composable
 fun BonusScreen(
+    destination: BonusDestination,
     modifier: Modifier = Modifier,
     viewModel: BonusViewModel = hiltViewModel(),
 ) {
@@ -33,6 +36,10 @@ fun BonusScreen(
             ),
             onBottomBarItemClick = viewModel::onBottomBarItemClick,
         )
+    }
+
+    LaunchedEffect(destination) {
+        viewModel.load(destination)
     }
 
     BackHandler(onBack = viewModel::onBack)

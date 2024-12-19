@@ -70,6 +70,10 @@ class MainActivity : ComponentActivity() {
                     if (destination is Backstack) {
                         currentBackstack = destination
                     } else {
+                        if (destination.args.backstackIndex >= 0) {
+                            currentBackstack = Backstack.from(destination.args.backstackIndex)
+                        }
+
                         when (currentBackstack) {
                             is HomeBackstack -> homeNavController.open(destination)
                             is BonusBackstack -> bonusNavController.open(destination)

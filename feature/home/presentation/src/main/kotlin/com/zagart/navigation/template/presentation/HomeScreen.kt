@@ -23,7 +23,7 @@ fun HomeScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
         HomeScreenActions(
-            onBonusBoxBannerClick = { viewModel.onBonusBoxClick(backstackIndex) },
+            onBonusBoxBannerClick = { viewModel.onBonusBoxClick(Tab.BONUS.ordinal) },
             onBottomBarItemClick = viewModel::onBottomBarItemClick,
             onProductClick = { viewData -> viewModel.onProductClick(viewData, backstackIndex) },
             onBonusGroupClick = { viewData ->

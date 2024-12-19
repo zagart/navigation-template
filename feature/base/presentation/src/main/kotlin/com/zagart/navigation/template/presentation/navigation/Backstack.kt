@@ -4,7 +4,22 @@ import android.os.Parcelable
 import com.zagart.navigation.template.ui.Tab
 import kotlinx.parcelize.Parcelize
 
-sealed interface Backstack : Destination
+sealed interface Backstack : Destination {
+
+    companion object {
+
+        fun from(backstackIndex: Int): Backstack {
+            return when (backstackIndex) {
+                Tab.HOME.ordinal -> HomeBackstack()
+                Tab.BONUS.ordinal -> BonusBackstack()
+                Tab.COOKING.ordinal -> CookingBackstack()
+                Tab.PRODUCTS.ordinal -> ProductsBackstack()
+                Tab.MY_LIST.ordinal -> MyListBackstack()
+                else -> throw IllegalArgumentException("Backstack with index $backstackIndex does not exist")
+            }
+        }
+    }
+}
 
 @Parcelize
 data class BonusBackstack(

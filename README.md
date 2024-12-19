@@ -70,3 +70,7 @@ makes navigation flow completely independent from deeplink logic.
 - Navigation system should support animation edge cases
 Solution: Each destination show support both application-level and screen-level components (in most
 cases it will be bottom bar, but cases with top bar are also possible).
+
+TODO:
+- Definition and scope of destination
+- Define screen-level composable responsibilities (onBack, load, component scopes)

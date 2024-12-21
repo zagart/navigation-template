@@ -16,13 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.zagart.navigation.template.navigation.deeplinks.DeeplinkConverter
 import com.zagart.navigation.template.navigation.hosts.BonusNavHost
 import com.zagart.navigation.template.navigation.hosts.CookingNavHost
 import com.zagart.navigation.template.navigation.hosts.HomeNavHost
 import com.zagart.navigation.template.navigation.hosts.MyListNavHost
 import com.zagart.navigation.template.navigation.hosts.ProductsNavHost
+import com.zagart.navigation.template.navigation.rememberNavControllerManager
 import com.zagart.navigation.template.presentation.components.bottombar.ExampleBottomBar
 import com.zagart.navigation.template.presentation.components.topbar.ExampleTopBar
 import com.zagart.navigation.template.presentation.navigation.BackDestination
@@ -52,11 +52,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavigationTemplateTheme {
                 val scrollStateHolder = remember { ScrollStateHolder() }
-                val homeNavController = rememberNavController()
-                val bonusNavController = rememberNavController()
-                val cookingNavController = rememberNavController()
-                val productsNavController = rememberNavController()
-                val myListNavController = rememberNavController()
+                val navControllerManager = rememberNavControllerManager()
 
                 var currentBackstack: Backstack by rememberSaveable {
                     mutableStateOf(HomeBackstack())
@@ -66,25 +62,24 @@ class MainActivity : ComponentActivity() {
                     .collectAsStateWithLifecycle(currentBackstack)
                     .value
 
+                var currentController = navControllerManager.getController(currentBackstack)
+
                 LaunchedEffect(destination) {
                     if (destination is Backstack) {
                         currentBackstack = destination
                     } else {
                         if (destination.args.backstackIndex >= 0) {
                             currentBackstack = Backstack.from(destination.args.backstackIndex)
+                            currentController =
+                                navControllerManager.getController(currentBackstack)
 
-                            if () {
-
+                            if (currentController.currentBackStackEntry == null) {
+                                // [Workaround] Giving some time to NavHost to initialize first destination
+                                delay(50)
                             }
                         }
 
-                        when (currentBackstack) {
-                            is HomeBackstack -> homeNavController.open(destination)
-                            is BonusBackstack -> bonusNavController.open(destination)
-                            is CookingBackstack -> cookingNavController.open(destination)
-                            is ProductsBackstack -> productsNavController.open(destination)
-                            is MyListBackstack -> myListNavController.open(destination)
-                        }
+                        currentController.open(destination)
                     }
                 }
 
@@ -92,11 +87,11 @@ class MainActivity : ComponentActivity() {
                     ExampleTopBar()
                     Surface(modifier = Modifier.weight(1f)) {
                         when (currentBackstack) {
-                            is HomeBackstack -> HomeNavHost(homeNavController, scrollStateHolder)
-                            is BonusBackstack -> BonusNavHost(bonusNavController, scrollStateHolder)
-                            is CookingBackstack -> CookingNavHost(cookingNavController)
-                            is ProductsBackstack -> ProductsNavHost(productsNavController)
-                            is MyListBackstack -> MyListNavHost(myListNavController)
+                            is HomeBackstack -> HomeNavHost(currentController, scrollStateHolder)
+                            is BonusBackstack -> BonusNavHost(currentController, scrollStateHolder)
+                            is CookingBackstack -> CookingNavHost(currentController)
+                            is ProductsBackstack -> ProductsNavHost(currentController)
+                            is MyListBackstack -> MyListNavHost(currentController)
                         }
                     }
                     ExampleBottomBar()

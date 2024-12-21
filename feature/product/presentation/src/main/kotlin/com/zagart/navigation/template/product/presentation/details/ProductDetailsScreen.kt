@@ -10,7 +10,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.zagart.navigation.template.feature.product.ui.details.ProductDetailsScreenActions
 import com.zagart.navigation.template.feature.product.ui.details.ProductDetailsScreenUi
-import com.zagart.navigation.template.presentation.components.DestinationTypeWrapper
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
 
 @Composable
@@ -18,7 +17,6 @@ fun ProductDetailsScreen(
     destination: ProductDetailsDestination,
     modifier: Modifier = Modifier,
     viewModel: ProductDetailsViewModel = hiltViewModel(),
-    background: @Composable (() -> Unit)? = null,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val actions = remember(viewModel) {
@@ -33,17 +31,9 @@ fun ProductDetailsScreen(
     }
 
     BackHandler(onBack = viewModel::onBack)
-    DestinationTypeWrapper(
+    ProductDetailsScreenUi(
         modifier = modifier,
-        type = destination.args.type,
-        background = background,
-        content = { wrapperModifier ->
-            ProductDetailsScreenUi(
-                modifier = wrapperModifier,
-                state = state,
-                actions = actions,
-            )
-        },
-        onDismissRequest = viewModel::onBack
+        state = state,
+        actions = actions,
     )
 }

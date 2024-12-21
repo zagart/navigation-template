@@ -58,7 +58,6 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
                 id = bonusGroup.id,
                 args = Destination.Args(
                     backstackIndex = backstackIndex,
-                    type = Destination.Type.Fullscreen,
                     topBarScope = Destination.ComponentScope.Application,
                     bottomBarScope = Destination.ComponentScope.Application,
                 )

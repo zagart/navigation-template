@@ -20,7 +20,6 @@ sealed interface Destination : Parcelable {
      * @property backstackIndex Index of backstack to which this screen belongs to.
      * @property topBarScope Defines scope where top bar should be shown.
      * @property bottomBarScope Defines scope where top bar should be shown.
-     * @property type Representation of screen (bad practice, to be removed).
      * @property timestamp Makes each destination unique (destinations consumed by [LaunchedEffect]])
      */
     @Parcelize
@@ -29,7 +28,6 @@ sealed interface Destination : Parcelable {
         val backstackIndex: Int = -1,
         val topBarScope: ComponentScope = ComponentScope.Screen,
         val bottomBarScope: ComponentScope = ComponentScope.Application,
-        val type: Type = Type.Fullscreen,
         val timestamp: Long = System.currentTimeMillis(),
     ) : Parcelable {
 
@@ -41,29 +39,7 @@ sealed interface Destination : Parcelable {
 
     @Parcelize
     @Serializable
-    enum class ComponentScope : Parcelable { Application, Screen, None }
-
-    // [Decision] One screen - one representation
-    @Parcelize
-    @Serializable
-    sealed interface Type : Parcelable {
-
-        @Parcelize
-        @Serializable
-        data object Fullscreen : Type, Parcelable
-
-        @Parcelize
-        @Serializable
-        data class Dialog(
-            val background: Destination
-        ) : Type, Parcelable
-
-        @Parcelize
-        @Serializable
-        data class BottomSheet(
-            val background: Destination
-        ) : Type, Parcelable
-    }
+    enum class ComponentScope : Parcelable { Application, Screen }
 }
 
 fun Destination.ComponentScope?.isApplication(): Boolean {

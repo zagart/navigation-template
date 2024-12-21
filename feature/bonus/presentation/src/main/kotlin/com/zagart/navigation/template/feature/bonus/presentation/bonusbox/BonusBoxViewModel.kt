@@ -10,8 +10,6 @@ import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusLa
 import com.zagart.navigation.template.feature.product.domain.ProductRepository
 import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
-import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
-import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import com.zagart.navigation.template.presentation.navigation.isScreen
 import com.zagart.navigation.template.ui.Tab
@@ -57,16 +55,5 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
                 )
             }
         }
-    }
-
-    override fun onBonusGroupClick(bonusGroup: BonusGroupViewData, backstackIndex: Int) {
-        sendDestination(
-            BonusGroupDestination(
-                id = bonusGroup.id,
-                args = currentDestination.args.copy(
-                    type = Destination.Type.Dialog(currentDestination),
-                )
-            )
-        )
     }
 }

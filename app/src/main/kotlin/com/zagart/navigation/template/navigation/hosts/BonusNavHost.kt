@@ -8,13 +8,12 @@ import com.zagart.navigation.template.feature.bonus.presentation.overview.BonusS
 import com.zagart.navigation.template.feature.bonus.presentation.segment.BonusGroupScreen
 import com.zagart.navigation.template.navigation.defaultTypeMap
 import com.zagart.navigation.template.navigation.screen
-import com.zagart.navigation.template.navigation.screenWithBackground
 import com.zagart.navigation.template.presentation.navigation.BonusBoxDestination
 import com.zagart.navigation.template.presentation.navigation.BonusDestination
 import com.zagart.navigation.template.presentation.navigation.BonusGroupDestination
 import com.zagart.navigation.template.presentation.navigation.ProductDetailsDestination
-import com.zagart.navigation.template.product.presentation.details.ProductDetailsScreen
 import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
+import com.zagart.navigation.template.product.presentation.details.ProductDetailsScreen
 
 @Composable
 fun BonusNavHost(
@@ -28,17 +27,7 @@ fun BonusNavHost(
     ) {
         screen<BonusDestination> { BonusScreen(it) }
         screen<BonusBoxDestination> { BonusBoxScreen(it, scrollStateHolder) }
-        screenWithBackground<BonusGroupDestination>(scrollStateHolder) { destination, background ->
-            BonusGroupScreen(
-                destination = destination,
-                background = background,
-            )
-        }
-        screenWithBackground<ProductDetailsDestination>(scrollStateHolder) { destination, background ->
-            ProductDetailsScreen(
-                destination = destination,
-                background = background,
-            )
-        }
+        screen<BonusGroupDestination> { BonusGroupScreen(it) }
+        screen<ProductDetailsDestination> { ProductDetailsScreen(it) }
     }
 }

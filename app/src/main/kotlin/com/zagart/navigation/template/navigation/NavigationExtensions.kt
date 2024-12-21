@@ -10,7 +10,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.zagart.navigation.template.presentation.navigation.Destination
 import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
-import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
@@ -22,27 +21,12 @@ val defaultTypeMap = mapOf(
 inline fun <reified T : Destination> NavGraphBuilder.screen(
     noinline content: @Composable AnimatedContentScope.(T) -> Unit
 ) {
-    screenWithBackground<T>(ScrollStateHolder()) { destination, _ -> content(destination) }
-}
 
-inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
-    scrollStateHolder: ScrollStateHolder,
-    noinline content: @Composable AnimatedContentScope.(T, (@Composable () -> Unit)?) -> Unit
-) {
     composable<T>(typeMap = defaultTypeMap) { entry ->
         val destination = entry.toRoute<T>()
-        val backgroundDestination = when (val type = destination.args.type) {
-            is Destination.Type.BottomSheet -> type.background
-            is Destination.Type.Dialog -> type.background
-            is Destination.Type.Fullscreen -> null
-        }
         NavigationViewModel.currentDestinationState.value = destination
 
-        content(destination) {
-            if (backgroundDestination != null) {
-                ScreenComposableFactory.ScreenByDestination(backgroundDestination, scrollStateHolder)
-            }
-        }
+        content(destination)
     }
 }
 

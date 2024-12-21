@@ -9,6 +9,5 @@ import javax.inject.Inject
 class MyListViewModel @Inject constructor() : NavigationViewModel() {
 
     fun load(destination: MyListDestination) {
-        changeCurrentDestination(destination)
     }
 }

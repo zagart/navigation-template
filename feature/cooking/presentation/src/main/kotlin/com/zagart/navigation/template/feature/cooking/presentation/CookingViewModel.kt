@@ -9,6 +9,5 @@ import javax.inject.Inject
 class CookingViewModel @Inject constructor() : NavigationViewModel() {
 
     fun load(destination: Destination) {
-        changeCurrentDestination(destination)
     }
 }

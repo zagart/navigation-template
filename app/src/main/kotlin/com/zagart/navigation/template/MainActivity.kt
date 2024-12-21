@@ -72,6 +72,10 @@ class MainActivity : ComponentActivity() {
                     } else {
                         if (destination.args.backstackIndex >= 0) {
                             currentBackstack = Backstack.from(destination.args.backstackIndex)
+
+                            if () {
+
+                            }
                         }
 
                         when (currentBackstack) {

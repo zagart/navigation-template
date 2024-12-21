@@ -6,7 +6,6 @@ import com.zagart.navigation.template.feature.bonus.ui.components.models.BonusGr
 import com.zagart.navigation.template.feature.product.ui.components.ProductViewData
 import com.zagart.navigation.template.ui.Tab
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 open class NavigationViewModel : ViewModel() {
@@ -15,12 +14,6 @@ open class NavigationViewModel : ViewModel() {
         get() {
             return currentDestinationState.value!!
         }
-
-    protected fun changeCurrentDestination(destination: Destination) {
-        viewModelScope.launch {
-            currentDestinationState.update { destination }
-        }
-    }
 
     open fun onBack() {
         sendDestination(BackDestination())

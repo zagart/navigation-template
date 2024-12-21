@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.zagart.navigation.template.presentation.navigation.Destination
+import com.zagart.navigation.template.presentation.navigation.NavigationViewModel
 import com.zagart.navigation.template.presentation.navigation.ScrollStateHolder
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -35,6 +36,7 @@ inline fun <reified T : Destination> NavGraphBuilder.screenWithBackground(
             is Destination.Type.Dialog -> type.background
             is Destination.Type.Fullscreen -> null
         }
+        NavigationViewModel.currentDestinationState.value = destination
 
         content(destination) {
             if (backgroundDestination != null) {

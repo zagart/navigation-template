@@ -29,7 +29,6 @@ class BonusBoxViewModel @Inject constructor() : NavigationViewModel() {
     val state = _state.asStateFlow()
 
     fun load(destination: BonusBoxDestination) {
-        changeCurrentDestination(destination)
         viewModelScope.launch {
             val products = ProductRepository.getProducts().map {
                 ProductViewData(it.id, it.title)

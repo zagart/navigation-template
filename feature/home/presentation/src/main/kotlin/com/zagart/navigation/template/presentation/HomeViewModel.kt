@@ -28,7 +28,6 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
     val state = _state.asStateFlow()
 
     fun load(destination: HomeDestination) {
-        changeCurrentDestination(destination)
         viewModelScope.launch {
             val products = ProductRepository.getProducts().map {
                 ProductViewData(it.id, it.title)
@@ -61,6 +60,7 @@ class HomeViewModel @Inject constructor() : NavigationViewModel() {
                     backstackIndex = backstackIndex,
                     type = Destination.Type.Fullscreen,
                     topBarScope = Destination.ComponentScope.Application,
+                    bottomBarScope = Destination.ComponentScope.Application,
                 )
             )
         )

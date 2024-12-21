@@ -24,7 +24,6 @@ class BonusGroupViewModel @Inject constructor() : NavigationViewModel() {
     val state = _state.asStateFlow()
 
     fun load(destination: BonusGroupDestination) {
-        changeCurrentDestination(destination)
         viewModelScope.launch {
             val bonusGroup = BonusGroupRepository.getBonusGroupById(destination.id)
             _state.update { currentState ->
